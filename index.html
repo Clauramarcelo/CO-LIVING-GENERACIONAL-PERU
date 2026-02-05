@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Reintegro+ ayuda a personas adultas mayores a encontrar instituciones y programas de apoyo y reinserción." />
+  <title>Reintegro+ | Oportunidades</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Saltar al contenido</a>
+
+  <header class="header" role="banner">
+    <div class="container header__inner">
+      <div class="brand" aria-label="Marca">
+        <div class="brand__logo" aria-hidden="true">+</div>
+        <div class="brand__text">
+          <h1 class="brand__title">Reintegro+</h1>
+          <p class="brand__subtitle">Encuentra instituciones según tu interés</p>
+        </div>
+      </div>
+
+      <div class="header__actions">
+        <button id="btnTheme" class="btn btn--ghost" type="button" aria-label="Cambiar tema">
+          🌙 <span class="hide-sm">Tema</span>
+        </button>
+      </div>
+    </div>
+
+    <nav class="tabs container" aria-label="Navegación principal">
+      <button class="tab is-active"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-links"
+              id="tab-links"
+              type="button">
+        Programas
+      </button>
+
+      <button class="tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-about"
+              id="tab-about"
+              type="button">
+        Quiénes somos
+      </button>
+    </nav>
+  </header>
+
+  <main id="main" class="container main" tabindex="-1">
+    <!-- PANEL 1 -->
+    <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
+      <section class="hero" aria-label="Mensaje principal">
+        <div>
+          <h2 class="hero__title">Paso a paso, con calma</h2>
+          <p class="hero__desc">
+            Aquí tienes programas e instituciones que pueden ayudarte a encontrar oportunidades, comunidad o voluntariado.
+          </p>
+        </div>
+
+        <div class="hero__note" role="note" aria-label="Consejo">
+          <strong>Consejo:</strong> abre un enlace, revisa la información y vuelve aquí cuando quieras.
+          <div class="hero__noteSmall">Esta app organiza enlaces para hacerlo más fácil.</div>
+        </div>
+      </section>
+
+      <section class="listHeader" aria-label="Sección de programas">
+        <h3 class="listHeader__title">Programas disponibles</h3>
+        <p class="listHeader__subtitle" id="resultsCount">Cargando...</p>
+      </section>
+
+      <section id="cards" class="grid" aria-label="Listado de programas"></section>
+
+      <section id="emptyState" class="empty" hidden aria-label="Sin resultados">
+        <h3>No hay enlaces aún</h3>
+        <p>Agrega más programas en el archivo <strong>data.js</strong>.</p>
+      </section>
+    </section>
+
+    <!-- PANEL 2 -->
+    <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about">
+      <article class="about">
+        <h2>Quiénes somos</h2>
+        <p>
+          Reintegro+ es una app simple que reúne enlaces confiables para facilitar el acceso a programas e instituciones
+          que apoyan a personas adultas mayores en su camino de reintegrarse a una actividad laboral o comunitaria.
+        </p>
+
+        <h3>Nuestra misión</h3>
+        <p>
+          Reducir la dificultad de buscar oportunidades en internet, presentándolas de forma clara, accesible y amable.
+        </p>
+
+        <h3>Cómo usar la app</h3>
+        <ol>
+          <li>Revisa los programas en la lista.</li>
+          <li>Abre el enlace del programa que te interese.</li>
+          <li>Si necesitas, vuelve y abre otra opción.</li>
+        </ol>
+
+        <h3>Contacto</h3>
+        <p>
+          ¿Quieres sugerir una institución o mejorar la app?
+          <br />
+          <a class="link" href="mailto:contacto@reintegroplus.pe">contacto@reintegroplus.pe</a>
+        </p>
+
+        <div class="callout">
+          <strong>Nota:</strong> esta app no reemplaza asesoría psicológica, médica o legal. Es una guía para facilitar el acceso a recursos.
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <small>© <span id="year"></span> Reintegro+ — Hecho con propósito.</small>
+      <small class="muted">Accesible • Simple • Rápido</small>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
