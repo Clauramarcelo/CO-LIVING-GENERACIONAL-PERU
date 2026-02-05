@@ -35,5 +35,7 @@ window.LINKS_DATA = [
     location: "Perú",
     provider: "PROA",
     whatsappText: "Hola, quiero información sobre oportunidades de voluntariado."
+    // whatsapp: "51999999999",
+    // phone: "+51 999 999 999"
   }
 ];
