@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Reintegro+ ayuda a personas adultas mayores a encontrar instituciones y programas de apoyo y reinserción." />
-  <title>Reintegro+ | Oportunidades</title>
+  <meta name="description" content="CO‑LIVING Generacional: enlaces claros y accesibles para programas de apoyo, comunidad y oportunidades." />
+  <title>CO‑LIVING Generacional | Programas</title>
 
   <link rel="stylesheet" href="styles.css" />
 </head>
@@ -15,17 +15,11 @@
   <header class="header" role="banner">
     <div class="container header__inner">
       <div class="brand" aria-label="Marca">
-        <div class="brand__logo" aria-hidden="true">+</div>
+        <div class="brand__logo" aria-hidden="true">🤝</div>
         <div class="brand__text">
-          <h1 class="brand__title">Reintegro+</h1>
-          <p class="brand__subtitle">Encuentra instituciones según tu interés</p>
+          <h1 class="brand__title">CO‑LIVING Generacional</h1>
+          <p class="brand__subtitle">Opciones claras para apoyo, comunidad y oportunidades</p>
         </div>
-      </div>
-
-      <div class="header__actions">
-        <button id="btnTheme" class="btn btn--ghost" type="button" aria-label="Cambiar tema">
-          🌙 <span class="hide-sm">Tema</span>
-        </button>
       </div>
     </div>
 
@@ -54,16 +48,84 @@
     <!-- PANEL 1 -->
     <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
       <section class="hero" aria-label="Mensaje principal">
-        <div>
+        <div class="hero__content">
           <h2 class="hero__title">Paso a paso, con calma</h2>
           <p class="hero__desc">
-            Aquí tienes programas e instituciones que pueden ayudarte a encontrar oportunidades, comunidad o voluntariado.
+            Reunimos enlaces confiables para que encuentres apoyo, actividades, voluntariado u oportunidades.
           </p>
+
+          <div class="hero__note" role="note" aria-label="Consejo">
+            <strong>Consejo:</strong> abre un enlace, revisa la información y vuelve aquí cuando quieras.
+            <div class="hero__noteSmall">Si un programa tiene contacto, verás botones de WhatsApp o Llamar.</div>
+          </div>
         </div>
 
-        <div class="hero__note" role="note" aria-label="Consejo">
-          <strong>Consejo:</strong> abre un enlace, revisa la información y vuelve aquí cuando quieras.
-          <div class="hero__noteSmall">Esta app organiza enlaces para hacerlo más fácil.</div>
+        <!-- Ilustración (SVG) de un adulto sonriendo -->
+        <div class="hero__media" aria-label="Ilustración de una persona adulta sonriendo">
+          <svg class="hero__svg" viewBox="0 0 520 420" role="img" aria-label="Adulto mayor sonriendo con gesto amable">
+            <defs>
+              <linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2bb7da" stop-opacity="0.35"/>
+                <stop offset="1" stop-color="#7c76ff" stop-opacity="0.25"/>
+              </linearGradient>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#2bb7da"/>
+                <stop offset="1" stop-color="#7c76ff"/>
+              </linearGradient>
+              <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#1f2a37" flood-opacity="0.12"/>
+              </filter>
+            </defs>
+
+            <!-- Fondo suave -->
+            <rect x="20" y="20" width="480" height="380" rx="28" fill="url(#g1)" />
+
+            <!-- Card interna -->
+            <rect x="70" y="70" width="380" height="280" rx="22" fill="#ffffff" filter="url(#shadow)" />
+
+            <!-- Cabeza -->
+            <circle cx="260" cy="175" r="78" fill="#F2C9A0"/>
+
+            <!-- Cabello gris -->
+            <path d="M190 165c10-50 55-85 110-85 34 0 61 12 78 32 14 16 22 37 22 60
+                     0 0-24-38-50-50-20-9-34-10-50-8-24 3-40 12-58 26-16 13-28 25-35 40 0 0-10-6-17-15z"
+                  fill="#D1D5DB"/>
+
+            <!-- Orejas -->
+            <circle cx="182" cy="182" r="12" fill="#EABF95"/>
+            <circle cx="338" cy="182" r="12" fill="#EABF95"/>
+
+            <!-- Ojos -->
+            <circle cx="230" cy="175" r="7" fill="#1f2a37"/>
+            <circle cx="290" cy="175" r="7" fill="#1f2a37"/>
+            <circle cx="227" cy="172" r="2.2" fill="#ffffff"/>
+            <circle cx="287" cy="172" r="2.2" fill="#ffffff"/>
+
+            <!-- Cejas -->
+            <path d="M212 155c10-8 22-10 36-6" stroke="#1f2a37" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.45"/>
+            <path d="M308 155c-10-8-22-10-36-6" stroke="#1f2a37" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.45"/>
+
+            <!-- Nariz -->
+            <path d="M260 178c-6 16-6 22 0 32" stroke="#c08f66" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.65"/>
+
+            <!-- Sonrisa -->
+            <path d="M226 222c18 20 50 20 68 0" stroke="#b45309" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.85"/>
+            <path d="M238 232c10 10 34 10 44 0" stroke="#fb7185" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.35"/>
+
+            <!-- Cuello -->
+            <rect x="238" y="245" width="44" height="34" rx="12" fill="#EABF95"/>
+
+            <!-- Ropa -->
+            <path d="M168 350c18-48 56-76 92-86 18-5 74-5 92 0 36 10 74 38 92 86H168z"
+                  fill="url(#g2)" opacity="0.9"/>
+            <path d="M238 265h44l-22 20-22-20z" fill="#ffffff" opacity="0.95"/>
+
+            <!-- Texto amigable -->
+            <text x="260" y="112" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Arial"
+                  font-size="16" fill="#56657a">
+              Bienvenido/a 😊
+            </text>
+          </svg>
         </div>
       </section>
 
@@ -74,7 +136,7 @@
 
       <section id="cards" class="grid" aria-label="Listado de programas"></section>
 
-      <section id="emptyState" class="empty" hidden aria-label="Sin resultados">
+      <section id="emptyState" class="empty" hidden aria-label="Sin enlaces">
         <h3>No hay enlaces aún</h3>
         <p>Agrega más programas en el archivo <strong>data.js</strong>.</p>
       </section>
@@ -85,27 +147,27 @@
       <article class="about">
         <h2>Quiénes somos</h2>
         <p>
-          Reintegro+ es una app simple que reúne enlaces confiables para facilitar el acceso a programas e instituciones
-          que apoyan a personas adultas mayores en su camino de reintegrarse a una actividad laboral o comunitaria.
+          CO‑LIVING Generacional es una app simple que organiza enlaces de programas e instituciones
+          para que sea más fácil acceder a apoyo, comunidad, voluntariado u oportunidades.
         </p>
 
         <h3>Nuestra misión</h3>
         <p>
-          Reducir la dificultad de buscar oportunidades en internet, presentándolas de forma clara, accesible y amable.
+          Disminuir la dificultad de buscar información en internet, con una experiencia clara, accesible y amable.
         </p>
 
         <h3>Cómo usar la app</h3>
         <ol>
-          <li>Revisa los programas en la lista.</li>
+          <li>Revisa las tarjetas (cards) con opciones disponibles.</li>
           <li>Abre el enlace del programa que te interese.</li>
-          <li>Si necesitas, vuelve y abre otra opción.</li>
+          <li>Si hay contacto, usa “WhatsApp” o “Llamar”.</li>
         </ol>
 
         <h3>Contacto</h3>
         <p>
           ¿Quieres sugerir una institución o mejorar la app?
           <br />
-          <a class="link" href="mailto:contacto@reintegroplus.pe">contacto@reintegroplus.pe</a>
+          <a href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
         </p>
 
         <div class="callout">
@@ -117,8 +179,8 @@
 
   <footer class="footer" role="contentinfo">
     <div class="container footer__inner">
-      <small>© <span id="year"></span> Reintegro+ — Hecho con propósito.</small>
-      <small class="muted">Accesible • Simple • Rápido</small>
+      <small>© <span id="year"></span> CO‑LIVING Generacional — Hecho con propósito.</small>
+      <small class="muted">Accesible • Simple • Claro</small>
     </div>
   </footer>
 
