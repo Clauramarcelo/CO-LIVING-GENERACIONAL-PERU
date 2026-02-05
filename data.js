@@ -28,11 +28,12 @@ window.LINKS_DATA = [
   },
   {
     title: "PROA – Plataforma peruana de voluntariado",
-    description: "Plataforma peruana que conecta a personas que quieren hacer voluntariado con organizaciones solidarias.",
+    description: "Plataforma que conecta a personas voluntarias con organizaciones solidarias y causas sociales.",
     url: "https://proa.pe/",
     mode: "Virtual",
     interests: ["Voluntariado", "Causas", "Comunidad"],
     location: "Perú",
-    provider: "PROA"
+    provider: "PROA",
+    whatsappText: "Hola, quiero información sobre oportunidades de voluntariado."
   }
 ];
