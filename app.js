@@ -39,7 +39,7 @@ function contactButtons(item){
     const wa = makeWhatsAppLink(item.whatsapp, item.whatsappText);
     if (wa){
       btns.push(`
-        <a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">
+        <a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener noreferrer" aria-label="Escribir por WhatsApp">
           💬 WhatsApp
         </a>
       `);
@@ -72,7 +72,7 @@ function cardTemplate(item){
     .map(t => `<span class="tag">${escapeHTML(t)}</span>`)
     .join("");
 
-  const host = safeHostname(item.url);
+  const host = escapeHTML(safeHostname(item.url));
 
   return `
     <article class="card">
@@ -99,7 +99,7 @@ function cardTemplate(item){
           ${contactButtons(item)}
         </div>
 
-        <span class="small">${escapeHTML(host)}</span>
+        <span class="small">${host}</span>
       </div>
     </article>
   `;
