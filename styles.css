@@ -1,21 +1,23 @@
 :root{
-  /* Tema claro fijo */
-  --bg: #f6fbff;
-  --bg2:#fff7fb;
+  /* Fondo beige cálido */
+  --bg:  #fbf4e8;   /* beige claro */
+  --bg2: #f7efe0;   /* beige arena */
   --card: #ffffff;
-  --text: #1f2a37;
-  --muted: #56657a;
 
-  /* Paleta amigable */
-  --primary: #2bb7da;   /* celeste suave */
-  --primary2:#7c76ff;   /* violeta suave */
-  --accent: #22c55e;    /* verde amable */
-  --warn: #f59e0b;      /* ámbar suave */
+  /* Texto */
+  --text: #2b2a26;  /* marrón/gris suave */
+  --muted:#6b645a;
 
-  --border: rgba(31,42,55,.12);
-  --shadow: 0 10px 24px rgba(31,42,55,.08);
+  /* Acentos amigables */
+  --primary:  #c07a4a; /* terracota suave */
+  --primary2: #6aa6a6; /* verde-azulado suave */
+  --accent:   #22c55e; /* WhatsApp */
+  --warn:     #f59e0b; /* Llamar/alerta suave */
+
+  --border: rgba(43,42,38,.12);
+  --shadow: 0 10px 24px rgba(43,42,38,.10);
   --radius: 16px;
-  --focus: 0 0 0 3px rgba(43,183,218,.25);
+  --focus: 0 0 0 3px rgba(192,122,74,.25);
 
   --font: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 }
@@ -30,9 +32,10 @@ body{
   line-height:1.6;
   letter-spacing:.2px;
 
+  /* Fondo beige con luces suaves */
   background:
-    radial-gradient(900px 460px at 8% 0%, rgba(43,183,218,.18), transparent 60%),
-    radial-gradient(900px 460px at 92% 0%, rgba(124,118,255,.15), transparent 55%),
+    radial-gradient(900px 520px at 10% 0%, rgba(192,122,74,.16), transparent 60%),
+    radial-gradient(900px 520px at 90% 0%, rgba(106,166,166,.14), transparent 55%),
     linear-gradient(180deg, var(--bg), var(--bg2));
 }
 
@@ -45,7 +48,7 @@ body{
   top:0;
   z-index:10;
   backdrop-filter: blur(10px);
-  background: rgba(255,255,255,.78);
+  background: rgba(251,244,232,.82);
   border-bottom:1px solid var(--border);
 }
 
@@ -70,7 +73,7 @@ body{
   border-radius:14px;
   display:grid;
   place-items:center;
-  background: linear-gradient(135deg, rgba(43,183,218,.95), rgba(124,118,255,.95));
+  background: linear-gradient(135deg, rgba(192,122,74,.95), rgba(106,166,166,.95));
   color:#ffffff;
   font-weight:900;
   box-shadow: var(--shadow);
@@ -89,7 +92,7 @@ body{
 .tab{
   appearance:none;
   border:1px solid var(--border);
-  background: rgba(255,255,255,.82);
+  background: rgba(255,255,255,.70);
   color: var(--text);
   padding: 10px 14px;
   border-radius: 999px;
@@ -103,20 +106,20 @@ body{
 .tab:focus-visible{ outline:none; box-shadow: var(--focus); }
 
 .tab.is-active{
-  background: linear-gradient(135deg, rgba(43,183,218,.18), rgba(124,118,255,.18));
-  border-color: rgba(43,183,218,.30);
+  background: linear-gradient(135deg, rgba(192,122,74,.18), rgba(106,166,166,.16));
+  border-color: rgba(192,122,74,.28);
 }
 
 /* Panels */
 .panel{ display:none; }
 .panel.is-active{ display:block; }
 
-/* Hero */
+/* Hero (sin imagen) */
 .hero{
   display:grid;
   gap:14px;
-  grid-template-columns: 1.2fr .8fr;
-  align-items:center;
+  grid-template-columns: 1fr;
+  align-items:start;
   margin: 16px 0 14px;
 }
 
@@ -137,17 +140,6 @@ body{
   margin-top: 6px;
   color: var(--muted);
   font-size: 14px;
-}
-
-.hero__media{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-
-.hero__svg{
-  width:min(420px, 100%);
-  height:auto;
 }
 
 /* List header */
@@ -217,7 +209,7 @@ body{
   border:1px solid var(--border);
   padding: 4px 8px;
   border-radius: 999px;
-  background: rgba(43,183,218,.06);
+  background: rgba(192,122,74,.08);
 }
 
 /* Actions */
@@ -239,7 +231,7 @@ body{
 
 .btn{
   border:1px solid var(--border);
-  background: linear-gradient(135deg, rgba(43,183,218,.18), rgba(124,118,255,.18));
+  background: linear-gradient(135deg, rgba(192,122,74,.18), rgba(106,166,166,.16));
   color: var(--text);
   padding: 10px 12px;
   border-radius: 12px;
@@ -255,7 +247,7 @@ body{
 .btn:focus-visible{ outline:none; box-shadow: var(--focus); }
 
 .btn--primary{
-  background: linear-gradient(135deg, rgba(43,183,218,.28), rgba(124,118,255,.22));
+  background: linear-gradient(135deg, rgba(192,122,74,.26), rgba(106,166,166,.20));
 }
 
 .btn--whatsapp{
@@ -292,9 +284,9 @@ body{
 
 .callout{
   margin-top:12px;
-  border-left: 4px solid rgba(43,183,218,.65);
+  border-left: 4px solid rgba(192,122,74,.60);
   padding: 10px 12px;
-  background: rgba(43,183,218,.10);
+  background: rgba(192,122,74,.10);
   border-radius: 12px;
 }
 
@@ -332,8 +324,6 @@ body{
 /* Responsive */
 @media (max-width: 900px){
   .grid{ grid-template-columns: repeat(2, 1fr); }
-  .hero{ grid-template-columns: 1fr; }
-  .hero__media{ order:-1; } /* la ilustración arriba en móvil */
 }
 @media (max-width: 560px){
   .grid{ grid-template-columns: 1fr; }
