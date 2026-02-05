@@ -1,22 +1,5 @@
 const $ = (sel) => document.querySelector(sel);
-
-const state = {
-  theme: localStorage.getItem("theme") || "dark"
-};
-
 const data = window.LINKS_DATA ?? [];
-
-function setTheme(theme){
-  const t = theme === "light" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", t);
-  localStorage.setItem("theme", t);
-  state.theme = t;
-
-  // Texto del botón (simple y claro)
-  $("#btnTheme").innerHTML = (t === "light")
-    ? `🌙 <span class="hide-sm">Tema</span>`
-    : `☀️ <span class="hide-sm">Tema</span>`;
-}
 
 function escapeHTML(str){
   return (str ?? "").toString()
@@ -29,6 +12,52 @@ function escapeHTML(str){
 
 function safeHostname(url){
   try { return new URL(url).hostname; } catch { return ""; }
+}
+
+function onlyDigits(str){
+  return (str ?? "").toString().replace(/\D+/g, "");
+}
+
+function makeWhatsAppLink(number, text){
+  const phone = onlyDigits(number);
+  if (!phone) return "";
+  const msg = encodeURIComponent(text || "Hola, quisiera información por favor.");
+  return `https://wa.me/${phone}?text=${msg}`;
+}
+
+function makeTelLink(number){
+  const raw = (number ?? "").toString().trim();
+  if (!raw) return "";
+  const tel = raw.startsWith("+") ? raw : `+${onlyDigits(raw)}`;
+  return `tel:${tel}`;
+}
+
+function contactButtons(item){
+  const btns = [];
+
+  if (item.whatsapp){
+    const wa = makeWhatsAppLink(item.whatsapp, item.whatsappText);
+    if (wa){
+      btns.push(`
+        <a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">
+          💬 WhatsApp
+        </a>
+      `);
+    }
+  }
+
+  if (item.phone){
+    const tel = makeTelLink(item.phone);
+    if (tel){
+      btns.push(`
+        <a class="btn btn--call" href="${tel}" aria-label="Llamar por teléfono">
+          📞 Llamar
+        </a>
+      `);
+    }
+  }
+
+  return btns.join("");
 }
 
 function cardTemplate(item){
@@ -62,13 +91,14 @@ function cardTemplate(item){
       </div>
 
       <div class="card__actions">
-        <a class="btn"
-           href="${item.url}"
-           target="_blank"
-           rel="noopener noreferrer"
-           aria-label="Abrir enlace en una nueva pestaña: ${title}">
-          Abrir enlace →
-        </a>
+        <div class="actionsLeft">
+          <a class="btn btn--primary" href="${item.url}" target="_blank" rel="noopener noreferrer" aria-label="Abrir enlace del programa">
+            Abrir enlace →
+          </a>
+
+          ${contactButtons(item)}
+        </div>
+
         <span class="small">${escapeHTML(host)}</span>
       </div>
     </article>
@@ -110,14 +140,13 @@ function setupTabs(){
     panelLinks.classList.toggle("is-active", isLinks);
     panelAbout.classList.toggle("is-active", !isLinks);
 
-    // accesibilidad: mover foco al contenido
     $("#main").focus();
   };
 
   tabLinks.addEventListener("click", () => activate("links"));
   tabAbout.addEventListener("click", () => activate("about"));
 
-  // navegación por teclado (izquierda/derecha)
+  // teclado: flechas
   const tabs = [tabLinks, tabAbout];
   tabs.forEach((t, idx) => {
     t.addEventListener("keydown", (e) => {
@@ -132,17 +161,9 @@ function setupTabs(){
   });
 }
 
-function setupTheme(){
-  setTheme(state.theme);
-  $("#btnTheme").addEventListener("click", () => {
-    setTheme(state.theme === "light" ? "dark" : "light");
-  });
-}
-
 function init(){
   $("#year").textContent = new Date().getFullYear();
   setupTabs();
-  setupTheme();
   render();
 }
 
