@@ -6,78 +6,21 @@
   <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
   <title>CO‑LIVING Generacional</title>
 
-  <link rel="icon" href="logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
 
-  <!-- PORTADA -->
-  <section id="cover" class="cover" aria-label="Portada de bienvenida">
-    <div class="cover__overlay" aria-hidden="true"></div>
-
-    <div class="container cover__inner">
-      <img class="cover__logo" src="logo.svg" alt="Logo CO‑LIVING Generacional" />
-
-      <h1 class="cover__title">CO‑LIVING Generacional</h1>
-
-      <p class="cover__subtitle">
-        Un espacio creado para acompañarte en esta nueva etapa con serenidad,
-        apoyo y oportunidades reales.
-      </p>
-
-      <div class="cover__card" role="note" aria-label="Mensaje de bienvenida">
-        <h2 class="cover__cardTitle">Bienvenido/a</h2>
-
-        <p>
-          Somos un grupo comprometido en acompañarte con respeto y tranquilidad.
-          Sabemos que pensar en <em>“¿qué será de mí cuando deje de trabajar?”</em>
-          puede generar incertidumbre, y por eso creamos este espacio:
-          para brindarte orientación, claridad y recursos confiables.
-        </p>
-
-        <p>
-          Acompañamos con respeto a quienes han dedicado años de su vida al trabajo y hoy buscan
-          nuevas maneras de seguir aportando y sintiéndose bien. Tu experiencia y tu historia
-          siguen siendo valiosas. <strong>No estás solo/a</strong>.
-        </p>
-
-        <ul class="cover__list">
-          <li>Enlaces confiables en un solo lugar.</li>
-          <li>Tarjetas claras con información corta y útil.</li>
-          <li>Botones directos para abrir enlace, WhatsApp o llamar (si existe contacto).</li>
-        </ul>
-
-        <p class="cover__tip">
-          <strong>Consejo:</strong> elige una opción y avanza paso a paso. Puedes volver cuando quieras.
-        </p>
-      </div>
-
-      <div class="cover__actions" aria-label="Acciones principales">
-        <button id="btnStart" class="btn btn--primary btn--xl" type="button">
-          Empezar
-        </button>
-        <button id="btnGoPrograms" class="btn btn--ghost btn--xl" type="button">
-          Ver programas
-        </button>
-        <button id="btnGoAbout" class="btn btn--ghost btn--xl" type="button">
-          Quiénes somos
-        </button>
-      </div>
-
-      <p class="cover__footer">Calma • Acompañamiento • Claridad</p>
-    </div>
-  </section>
-
-  <!-- APP -->
   <header class="header" role="banner">
     <div class="container header__inner">
       <div class="brand" aria-label="Marca">
-        <img class="brand__logoImg" src="logo.svg" alt="CO‑LIVING Generacional" />
         <div class="brand__text">
-          <h1 class="brand__title">CO‑LIVING Generacional</h1>
-          <p class="brand__subtitle">Opciones claras para apoyo, comunidad y oportunidades</p>
+          <h1 class="brand__title">
+            <span class="brand__titleMain">CO‑LIVING</span>
+            <span class="brand__titleSub">Generacional</span>
+          </h1>
+          <p class="brand__subtitle">Acompañamiento sereno • Comunidad • Oportunidades</p>
         </div>
       </div>
     </div>
@@ -104,18 +47,36 @@
   </header>
 
   <main id="main" class="container main" tabindex="-1">
-    <!-- PANEL 1 -->
+    <!-- PANEL 1: PROGRAMAS -->
     <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
-      <section class="hero" aria-label="Mensaje principal">
-        <div class="hero__content">
-          <h2 class="hero__title">Paso a paso, con calma</h2>
-          <p class="hero__desc">
-            Reunimos enlaces confiables para que encuentres apoyo, actividades, voluntariado u oportunidades.
-          </p>
+      <!-- Bienvenida compacta (no pantalla completa, sin obligar a scroll) -->
+      <section class="welcome" aria-label="Bienvenida">
+        <div class="welcome__overlay" aria-hidden="true"></div>
 
-          <div class="hero__note" role="note" aria-label="Consejo">
-            <strong>Consejo:</strong> abre un enlace, revisa la información y vuelve aquí cuando quieras.
-            <div class="hero__noteSmall">Si un programa tiene contacto, verás botones de WhatsApp o Llamar.</div>
+        <div class="welcome__inner">
+          <div class="welcome__text">
+            <h2 class="welcome__title">Bienvenido/a</h2>
+
+            <p class="welcome__desc">
+              Somos un grupo comprometido en acompañarte con respeto y tranquilidad.
+              Sabemos que pensar en <em>“¿qué será de mí cuando deje de trabajar?”</em> puede generar incertidumbre.
+              Por eso reunimos aquí opciones confiables para avanzar <strong>paso a paso, con calma</strong>.
+            </p>
+
+            <p class="welcome__desc">
+              Acompañamos con respeto a quienes han dedicado años de su vida al trabajo y hoy buscan
+              nuevas maneras de seguir aportando y sintiéndose bien. <strong>No estás solo/a</strong>.
+            </p>
+          </div>
+
+          <!-- Acciones rápidas: siempre visibles sin scroll -->
+          <div class="welcome__actions" aria-label="Acciones rápidas">
+            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">
+              Ver programas
+            </button>
+            <button class="btn btn--ghost btn--xl" type="button" id="btnOpenAbout">
+              Quiénes somos
+            </button>
           </div>
         </div>
       </section>
@@ -133,23 +94,25 @@
       </section>
     </section>
 
-    <!-- PANEL 2 -->
+    <!-- PANEL 2: QUIÉNES SOMOS -->
     <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about">
       <article class="about">
         <h2>Quiénes somos</h2>
         <p>
-          CO‑LIVING Generacional es una app simple que organiza enlaces de programas e instituciones
-          para que sea más fácil acceder a apoyo, comunidad, voluntariado u oportunidades.
+          Somos un grupo que desea acompañarte en una etapa de transición.
+          Nuestra meta es reducir la angustia y la incertidumbre, ofreciendo un punto de inicio claro y amable:
+          enlaces confiables a programas y recursos que pueden ayudarte a reconectarte con oportunidades,
+          comunidad y bienestar.
         </p>
 
         <h3>Nuestra misión</h3>
         <p>
-          Disminuir la dificultad de buscar información en internet, con una experiencia clara, accesible y amable.
+          Disminuir la dificultad de buscar información en internet con una experiencia simple, accesible y humana.
         </p>
 
         <h3>Cómo usar la app</h3>
         <ol>
-          <li>Revisa las tarjetas (cards) con opciones disponibles.</li>
+          <li>Revisa las tarjetas (cards) en “Programas”.</li>
           <li>Abre el enlace del programa que te interese.</li>
           <li>Si hay contacto, usa “WhatsApp” o “Llamar”.</li>
         </ol>
@@ -158,7 +121,7 @@
         <p>
           ¿Quieres sugerir una institución o mejorar la app?
           <br />
-          <a href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
+          <a class="link" href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
         </p>
 
         <div class="callout">
