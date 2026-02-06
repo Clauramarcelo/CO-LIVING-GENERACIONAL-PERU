@@ -7,9 +7,8 @@ const state = {
   fontScale: Number(localStorage.getItem("fontScale") || "1")
 };
 
-/* ===== Accesibilidad: tamaño de letra ===== */
+/* ===== Tamaño de letra ===== */
 function clamp(n, min, max){ return Math.max(min, Math.min(max, n)); }
-
 function applyFontScale(){
   state.fontScale = clamp(state.fontScale, 0.9, 1.3);
   document.documentElement.style.fontSize = `${state.fontScale * 100}%`;
@@ -19,28 +18,17 @@ function applyFontScale(){
 /* ===== Utilidades ===== */
 function escapeHTML(str){
   return (str ?? "").toString()
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;").replaceAll("'","&#039;");
 }
-
-function safeHostname(url){
-  try { return new URL(url).hostname; } catch { return ""; }
-}
-
-function onlyDigits(str){
-  return (str ?? "").toString().replace(/\D+/g, "");
-}
-
+function safeHostname(url){ try { return new URL(url).hostname; } catch { return ""; } }
+function onlyDigits(str){ return (str ?? "").toString().replace(/\D+/g, ""); }
 function makeWhatsAppLink(number, text){
   const phone = onlyDigits(number);
   if (!phone) return "";
   const msg = encodeURIComponent(text || "Hola, quisiera información por favor.");
   return `https://wa.me/${phone}?text=${msg}`;
 }
-
 function makeTelLink(number){
   const raw = (number ?? "").toString().trim();
   if (!raw) return "";
@@ -68,7 +56,6 @@ function sortPrograms(items){
 function saveFavorites(){
   localStorage.setItem("favorites", JSON.stringify(Array.from(state.favorites)));
 }
-
 function toggleFavorite(id){
   if (state.favorites.has(id)) state.favorites.delete(id);
   else state.favorites.add(id);
@@ -78,68 +65,53 @@ function toggleFavorite(id){
 
 /* ===== Tabs ===== */
 function setActiveTab(which){
-  const tabLinks = $("#tab-links");
-  const tabAbout = $("#tab-about");
-  const panelLinks = $("#panel-links");
-  const panelAbout = $("#panel-about");
+  const tabs = {
+    links:  { tab: $("#tab-links"),  panel: $("#panel-links") },
+    signup: { tab: $("#tab-signup"), panel: $("#panel-signup") },
+    about:  { tab: $("#tab-about"),  panel: $("#panel-about") }
+  };
 
-  const isLinks = which === "links";
-
-  tabLinks.classList.toggle("is-active", isLinks);
-  tabAbout.classList.toggle("is-active", !isLinks);
-
-  tabLinks.setAttribute("aria-selected", isLinks ? "true" : "false");
-  tabAbout.setAttribute("aria-selected", !isLinks ? "true" : "false");
-
-  panelLinks.classList.toggle("is-active", isLinks);
-  panelAbout.classList.toggle("is-active", !isLinks);
+  Object.keys(tabs).forEach(k => {
+    const on = (k === which);
+    tabs[k].tab.classList.toggle("is-active", on);
+    tabs[k].panel.classList.toggle("is-active", on);
+    tabs[k].tab.setAttribute("aria-selected", on ? "true" : "false");
+  });
 
   $("#main").focus();
 }
 
 function setupTabs(){
-  const tabLinks = $("#tab-links");
-  const tabAbout = $("#tab-about");
+  $("#tab-links").addEventListener("click", () => setActiveTab("links"));
+  $("#tab-signup").addEventListener("click", () => setActiveTab("signup"));
+  $("#tab-about").addEventListener("click", () => setActiveTab("about"));
+}
 
-  tabLinks.addEventListener("click", () => setActiveTab("links"));
-  tabAbout.addEventListener("click", () => setActiveTab("about"));
-
-  const tabs = [tabLinks, tabAbout];
-  tabs.forEach((t, idx) => {
-    t.addEventListener("keydown", (e) => {
-      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-        e.preventDefault();
-        const dir = e.key === "ArrowRight" ? 1 : -1;
-        const next = (idx + dir + tabs.length) % tabs.length;
-        tabs[next].focus();
-        tabs[next].click();
-      }
-    });
+/* ===== Botones rápidos ===== */
+function setupQuickButtons(){
+  $("#btnFocusPrograms")?.addEventListener("click", () => {
+    setActiveTab("links");
+    $("#programsTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
+  $("#btnOpenSignup")?.addEventListener("click", () => setActiveTab("signup"));
+  $("#btnOpenAbout")?.addEventListener("click", () => setActiveTab("about"));
 }
 
 /* ===== Contact buttons ===== */
 function contactButtons(item){
   const btns = [];
-
   if (item.whatsapp){
     const wa = makeWhatsAppLink(item.whatsapp, item.whatsappText);
-    if (wa){
-      btns.push(`<a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`);
-    }
+    if (wa) btns.push(`<a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener">💬 WhatsApp</a>`);
   }
-
   if (item.phone){
     const tel = makeTelLink(item.phone);
-    if (tel){
-      btns.push(`<a class="btn btn--call" href="${tel}">📞 Llamar</a>`);
-    }
+    if (tel) btns.push(`<a class="btn btn--call" href="${tel}">📞 Llamar</a>`);
   }
-
   return btns.join("");
 }
 
-/* ===== Card template ===== */
+/* ===== Card template (links correctos) ===== */
 function cardTemplate(item){
   const title = escapeHTML(item.title);
   const desc = escapeHTML(item.description);
@@ -176,41 +148,36 @@ function cardTemplate(item){
       </div>
 
       <p class="card__desc">${desc}</p>
-
       <div class="tags" aria-label="Etiquetas">${tags}</div>
 
       <div class="card__actions">
         <div class="actionsLeft">
-          <a class="btn btn--ghost" href="${url}" target="_blank" rel="noopener noreferrer">Abrir enlace →</a>
+          <a class="btn btn--primary" href="${url}" target="_blank" rel="noopener">Abrir enlace →</a>
           ${contactButtons(item)}
           <button class="${favClass}" type="button" data-fav="${escapeHTML(item.id)}" aria-label="${favLabel}">
             ${isFav ? "★" : "☆"}
           </button>
         </div>
-
         <span class="small">${host}</span>
       </div>
     </article>
   `;
 }
 
-/* ===== Render helpers ===== */
+/* ===== Render ===== */
 function getVisiblePrograms(){
   const filtered = data.filter(p => p.tier === "core" || (state.showExtra && p.tier === "extra"));
   return sortPrograms(filtered);
 }
-
 function wireFavButtons(scope = document){
   scope.querySelectorAll("[data-fav]").forEach(btn => {
     btn.addEventListener("click", () => toggleFavorite(btn.getAttribute("data-fav")));
   });
 }
-
 function renderPrograms(){
   const cards = $("#cards");
   const empty = $("#emptyState");
   const count = $("#resultsCount");
-
   const visible = getVisiblePrograms();
 
   if (!visible.length){
@@ -223,14 +190,11 @@ function renderPrograms(){
   cards.innerHTML = visible.map(cardTemplate).join("");
   empty.hidden = true;
   count.textContent = `${visible.length} programa(s)`;
-
   wireFavButtons(cards);
 }
-
 function renderFavorites(){
   const section = $("#favoritesSection");
   const grid = $("#favoritesGrid");
-
   const favItems = data.filter(p => state.favorites.has(p.id));
   const ordered = sortPrograms(favItems);
 
@@ -239,16 +203,13 @@ function renderFavorites(){
     grid.innerHTML = "";
     return;
   }
-
   section.hidden = false;
   grid.innerHTML = ordered.map(cardTemplate).join("");
   wireFavButtons(grid);
 }
-
 function renderRecommended(){
   const section = $("#recommendedSection");
   const grid = $("#recommendedGrid");
-
   const recommended = data.filter(p => p.tier === "core" && p.highlight);
   const ordered = sortPrograms(recommended);
 
@@ -257,27 +218,20 @@ function renderRecommended(){
     grid.innerHTML = "";
     return;
   }
-
   section.hidden = false;
   grid.innerHTML = ordered.map(cardTemplate).join("");
   wireFavButtons(grid);
 }
-
 function renderMoreButton(){
   const btn = $("#btnMorePrograms");
   const extraCount = data.filter(p => p.tier === "extra").length;
   btn.textContent = state.showExtra ? "Mostrar menos" : `Más programas (${extraCount})`;
 }
 
-/* ===== “IA” simple por interés ===== */
+/* ===== Asistente (recomendador) ===== */
 function normalizeText(str){
-  return (str || "")
-    .toString()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/\p{Diacritic}/gu, "");
+  return (str || "").toString().toLowerCase().normalize("NFD").replace(/\p{Diacritic}/gu, "");
 }
-
 function scoreProgram(program, selected){
   const tags = (program.interests || []).map(normalizeText);
   const title = normalizeText(program.title);
@@ -286,7 +240,6 @@ function scoreProgram(program, selected){
   const sel = normalizeText(selected);
 
   let score = 0;
-
   if (sel === "ayuda") {
     if (program.highlight) score += 8;
     if (trust.includes("oficial")) score += 3;
@@ -302,21 +255,8 @@ function scoreProgram(program, selected){
   if (program.highlight) score += 2;
   if (trust.includes("oficial")) score += 1;
 
-  if (sel === "bienestar") {
-    if (tags.includes("comunidad")) score += 3;
-    if (tags.includes("adulto mayor")) score += 2;
-  }
-  if (sel === "empleo") {
-    if (tags.includes("orientación") || tags.includes("cv")) score += 2;
-    if (tags.includes("reinserción laboral")) score += 2;
-  }
-  if (sel === "capacitación") {
-    if (tags.includes("formación")) score += 2;
-  }
-
   return score;
 }
-
 function getRecommendations(selected, limit = 5){
   const visible = getVisiblePrograms();
   const scored = visible
@@ -327,133 +267,60 @@ function getRecommendations(selected, limit = 5){
   if (!scored.length){
     return visible.filter(p => p.tier === "core" && p.highlight).slice(0, Math.min(3, limit));
   }
-
   return scored.slice(0, limit).map(x => x.p);
 }
-
 function renderForYou(selected){
   const section = $("#forYouSection");
   const grid = $("#forYouGrid");
   const subtitle = $("#forYouSubtitle");
 
   const recs = getRecommendations(selected, 5);
-
   subtitle.textContent = (selected === "Ayuda")
-    ? "Elegimos buenos primeros pasos para comenzar con calma."
-    : `Perfecto. Aquí tienes ideas para dar ese paso con tranquilidad: ${selected}.`;
+    ? "Te mostramos opciones sencillas para empezar con calma."
+    : `Opciones relacionadas a: ${selected}.`;
 
   section.hidden = false;
   grid.innerHTML = recs.map(cardTemplate).join("");
   wireFavButtons(grid);
-
   section.scrollIntoView({ behavior: "smooth", block: "start" });
 }
-
 function setupAssistant(){
   document.querySelectorAll(".assistantBtn").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const interest = btn.getAttribute("data-interest");
-      renderForYou(interest);
-    });
+    btn.addEventListener("click", () => renderForYou(btn.getAttribute("data-interest")));
   });
-
   $("#btnClearForYou")?.addEventListener("click", () => {
     $("#forYouSection").hidden = true;
     document.querySelector(".assistant")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 }
 
-/* ===== Top button ===== */
-function setupTopButton(){
-  const btn = $("#btnTop");
-  if (!btn) return;
-
-  const onScroll = () => { btn.hidden = !(window.scrollY > 380); };
-  window.addEventListener("scroll", onScroll, { passive: true });
-  onScroll();
-
-  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-}
-
-/* ===== Suggest (mailto) ===== */
-function setupSuggest(){
-  const dlg = $("#suggestDialog");
-  const openBtn = $("#btnSuggestOpen");
-  const closeBtn = $("#btnSuggestClose");
-  const form = $("#suggestForm");
-
-  if (!dlg || !openBtn || !form) return;
-
-  openBtn.addEventListener("click", () => {
-    if (typeof dlg.showModal === "function") dlg.showModal();
-    else alert("Tu navegador no soporta esta ventana. Puedes escribirnos al correo de contacto.");
-  });
-
-  closeBtn?.addEventListener("click", () => dlg.close());
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const name = $("#sName").value.trim();
-    const url = $("#sUrl").value.trim();
-    const note = $("#sNote").value.trim();
-
-    const to = "contacto@colivinggeneracional.pe";
-    const subject = encodeURIComponent("Sugerencia de programa para CO‑LIVING Generacional");
-    const body = encodeURIComponent(
-      `Hola,\n\nQuiero sugerir este programa:\n\n` +
-      `Nombre: ${name}\n` +
-      `Enlace: ${url}\n` +
-      (note ? `Comentario: ${note}\n` : "") +
-      `\nGracias.`
-    );
-
-    window.location.href = `mailto:${to}?subject=${subject}&body=${body}`;
-    dlg.close();
-    form.reset();
-  });
-}
-
-/* ===== Setup UI ===== */
-function setupWelcomeButtons(){
-  $("#btnFocusPrograms")?.addEventListener("click", () => {
-    setActiveTab("links");
-    $("#programsTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
-
-  $("#btnOpenAbout")?.addEventListener("click", () => setActiveTab("about"));
-}
-
+/* ===== Más programas ===== */
 function setupMorePrograms(){
   $("#btnMorePrograms")?.addEventListener("click", () => {
     state.showExtra = !state.showExtra;
     renderAll();
-    if (state.showExtra) $("#programsTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 }
 
-function setupClearFavs(){
-  $("#btnClearFavs")?.addEventListener("click", () => {
-    state.favorites.clear();
-    saveFavorites();
-    renderAll();
-  });
-}
-
+/* ===== A+/A- ===== */
 function setupFontControls(){
   applyFontScale();
-
-  $("#btnFontUp")?.addEventListener("click", () => {
-    state.fontScale += 0.05;
-    applyFontScale();
-  });
-
-  $("#btnFontDown")?.addEventListener("click", () => {
-    state.fontScale -= 0.05;
-    applyFontScale();
-  });
+  $("#btnFontUp")?.addEventListener("click", () => { state.fontScale += 0.05; applyFontScale(); });
+  $("#btnFontDown")?.addEventListener("click", () => { state.fontScale -= 0.05; applyFontScale(); });
 }
 
+/* ===== WhatsApp share del Sheet ===== */
+function setupWhatsappShare(){
+  const sheetBtn = $("#sheetLinkBtn");
+  const waBtn = $("#whatsShareBtn");
+  if (!sheetBtn || !waBtn) return;
+
+  const sheetUrl = sheetBtn.getAttribute("href");
+  const text = `Lista de inscritos CO‑LIVING Generacional: ${sheetUrl}`;
+  waBtn.href = `https://wa.me/?text=${encodeURIComponent(text)}`;
+}
+
+/* ===== Render all ===== */
 function renderAll(){
   renderRecommended();
   renderFavorites();
@@ -466,13 +333,11 @@ function init(){
   $("#year").textContent = new Date().getFullYear();
 
   setupTabs();
-  setupWelcomeButtons();
-  setupMorePrograms();
-  setupClearFavs();
-  setupFontControls();
-  setupTopButton();
-  setupSuggest();
+  setupQuickButtons();
   setupAssistant();
+  setupMorePrograms();
+  setupFontControls();
+  setupWhatsappShare();
 
   renderAll();
 }
