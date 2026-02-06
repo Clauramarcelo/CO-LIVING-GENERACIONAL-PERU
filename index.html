@@ -23,24 +23,32 @@
           <p class="brand__subtitle">Acompañamiento sereno • Comunidad • Oportunidades</p>
         </div>
       </div>
+
+      <!-- Controles de tamaño de letra -->
+      <div class="fontControls" aria-label="Controles de tamaño de letra">
+        <button id="btnFontDown" class="iconBtn" type="button" aria-label="Disminuir tamaño de letra">A−</button>
+        <button id="btnFontUp" class="iconBtn" type="button" aria-label="Aumentar tamaño de letra">A+</button>
+      </div>
     </div>
 
     <nav class="tabs container" role="tablist" aria-label="Navegación principal">
-      <button class="tab is-active"
-              role="tab"
-              aria-selected="true"
-              aria-controls="panel-links"
-              id="tab-links"
-              type="button">
+      <button
+        class="tab is-active"
+        role="tab"
+        aria-selected="true"
+        aria-controls="panel-links"
+        id="tab-links"
+        type="button">
         Programas
       </button>
 
-      <button class="tab"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-about"
-              id="tab-about"
-              type="button">
+      <button
+        class="tab"
+        role="tab"
+        aria-selected="false"
+        aria-controls="panel-about"
+        id="tab-about"
+        type="button">
         Quiénes somos
       </button>
     </nav>
@@ -49,7 +57,8 @@
   <main id="main" class="container main" tabindex="-1">
     <!-- PANEL 1: PROGRAMAS -->
     <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
-      <!-- Bienvenida compacta (no pantalla completa, sin obligar a scroll) -->
+
+      <!-- Bienvenida compacta -->
       <section class="welcome" aria-label="Bienvenida">
         <div class="welcome__overlay" aria-hidden="true"></div>
 
@@ -69,7 +78,6 @@
             </p>
           </div>
 
-          <!-- Acciones rápidas: siempre visibles sin scroll -->
           <div class="welcome__actions" aria-label="Acciones rápidas">
             <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">
               Ver programas
@@ -81,12 +89,28 @@
         </div>
       </section>
 
+      <!-- Favoritos -->
+      <section id="favoritesSection" class="favorites" hidden aria-label="Tus favoritos">
+        <div class="favorites__header">
+          <h3 class="favorites__title">Tus favoritos</h3>
+          <button id="btnClearFavs" class="btn btn--ghost" type="button">Quitar todos</button>
+        </div>
+        <div id="favoritesGrid" class="grid" aria-label="Listado de favoritos"></div>
+      </section>
+
       <section class="listHeader" aria-label="Sección de programas">
         <h3 class="listHeader__title" id="programsTitle">Programas disponibles</h3>
         <p class="listHeader__subtitle" id="resultsCount">Cargando...</p>
       </section>
 
       <section id="cards" class="grid" aria-label="Listado de programas"></section>
+
+      <!-- Botón MÁS PROGRAMAS -->
+      <div class="moreWrap" aria-label="Más programas">
+        <button id="btnMorePrograms" class="btn btn--ghost btn--xl" type="button">
+          Más programas
+        </button>
+      </div>
 
       <section id="emptyState" class="empty" hidden aria-label="Sin enlaces">
         <h3>No hay enlaces aún</h3>
@@ -115,13 +139,14 @@
           <li>Revisa las tarjetas (cards) en “Programas”.</li>
           <li>Abre el enlace del programa que te interese.</li>
           <li>Si hay contacto, usa “WhatsApp” o “Llamar”.</li>
+          <li>Si te gusta un programa, guárdalo en ⭐ Favoritos.</li>
         </ol>
 
         <h3>Contacto</h3>
         <p>
           ¿Quieres sugerir una institución o mejorar la app?
           <br />
-          <a class="link" href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
+          <a href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
         </p>
 
         <div class="callout">
