@@ -10,7 +10,7 @@ window.LINKS_DATA = [
   },
   {
     title: "EsSalud – CAM (Centro del Adulto Mayor)",
-    description: "Página informativa sobre los Centros del Adulto Mayor y sus actividades.",
+    description: "Información sobre los Centros del Adulto Mayor y sus actividades.",
     url: "https://www.essalud.gob.pe/transparencia/observatorio_de_poblaciones_vulnerables/cam.html",
     mode: "Mixta",
     interests: ["Bienestar", "Comunidad", "Adulto mayor"],
@@ -19,7 +19,7 @@ window.LINKS_DATA = [
   },
   {
     title: "Contraloría – Mentores de Control Social (60+)",
-    description: "Voluntariado dirigido a personas de 60 años a más para aportar experiencia a su comunidad.",
+    description: "Voluntariado para personas de 60 años a más que aportan experiencia a su comunidad.",
     url: "https://controlsocial.contraloria.gob.pe/mentoresdecontrolsocial/index.html",
     mode: "Mixta",
     interests: ["Voluntariado", "Comunidad", "60+"],
@@ -28,14 +28,16 @@ window.LINKS_DATA = [
   },
   {
     title: "PROA – Plataforma peruana de voluntariado",
-    description: "Plataforma que conecta a personas voluntarias con organizaciones solidarias y causas sociales.",
+    description: "Plataforma que conecta personas voluntarias con organizaciones solidarias y causas sociales.",
     url: "https://proa.pe/",
     mode: "Virtual",
     interests: ["Voluntariado", "Causas", "Comunidad"],
     location: "Perú",
     provider: "PROA",
     whatsappText: "Hola, quiero información sobre oportunidades de voluntariado."
-    // whatsapp: "51999999999",
-    // phone: "+51 999 999 999"
+    /* Para activar WhatsApp/Llamar agrega:
+       whatsapp: "51999999999",
+       phone: "+51 999 999 999"
+    */
   }
 ];
