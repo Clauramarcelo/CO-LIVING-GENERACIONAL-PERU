@@ -6,7 +6,7 @@
   <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
   <title>CO‑LIVING Generacional</title>
 
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
@@ -78,14 +78,71 @@
           </div>
 
           <div class="welcome__actions" aria-label="Acciones rápidas">
-            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">
-              Ver programas
-            </button>
-            <button class="btn btn--ghost btn--xl" type="button" id="btnOpenAbout">
-              Quiénes somos
-            </button>
+            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">Ver programas</button>
+            <button class="btn btn--ghost btn--xl" type="button" id="btnOpenAbout">Quiénes somos</button>
+            <button class="btn btn--ghost btn--xl" type="button" id="btnSuggestOpen">Sugerir un programa</button>
           </div>
         </div>
+      </section>
+
+      <!-- ASISTENTE (Opción C: motivacional) -->
+      <section class="assistant" aria-label="Asistente de recomendación">
+        <h3 class="assistant__title">¿Qué paso te gustaría dar hoy?</h3>
+        <p class="assistant__desc">
+          No buscamos grandes decisiones. Solo una dirección que te haga sentir bien.
+        </p>
+
+        <div class="assistant__buttons" role="group" aria-label="Opciones para empezar">
+          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Empleo">
+            Un paso hacia un trabajo
+          </button>
+
+          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Capacitación">
+            Un paso para aprender algo nuevo
+          </button>
+
+          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Emprendimiento">
+            Un paso hacia mi propio negocio
+          </button>
+
+          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Voluntariado">
+            Un paso para ayudar
+          </button>
+
+          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Bienestar">
+            Un paso para sentirme acompañado/a
+          </button>
+
+          <button class="btn btn--primary btn--xl assistantBtn" type="button" data-interest="Ayuda">
+            No sé aún… muéstrame buenos primeros pasos
+          </button>
+        </div>
+
+        <p class="assistant__desc" style="margin-top:10px;">
+          Si hoy estás con dudas, no pasa nada. Elige “No sé aún” y te mostramos opciones simples.
+        </p>
+      </section>
+
+      <!-- Recomendados para ti (resultado del asistente) -->
+      <section id="forYouSection" class="recommended" hidden aria-label="Recomendados para ti">
+        <div class="recommended__header">
+          <h3 class="recommended__title">Recomendados para ti</h3>
+          <p id="forYouSubtitle" class="recommended__desc">Según tu selección.</p>
+        </div>
+        <div id="forYouGrid" class="grid" aria-label="Programas recomendados para ti"></div>
+
+        <div class="moreWrap">
+          <button id="btnClearForYou" class="btn btn--ghost btn--xl" type="button">Elegir otro paso</button>
+        </div>
+      </section>
+
+      <!-- Recomendados para empezar -->
+      <section id="recommendedSection" class="recommended" hidden aria-label="Recomendados para empezar">
+        <div class="recommended__header">
+          <h3 class="recommended__title">Recomendados para empezar</h3>
+          <p class="recommended__desc">Opciones simples y confiables para dar el primer paso.</p>
+        </div>
+        <div id="recommendedGrid" class="grid" aria-label="Listado de recomendados"></div>
       </section>
 
       <!-- Favoritos -->
@@ -102,14 +159,23 @@
         <p class="listHeader__subtitle" id="resultsCount">Cargando...</p>
       </section>
 
+      <!-- Pasos simples -->
+      <section class="steps" aria-label="Pasos simples">
+        <div class="steps__item"><span class="steps__num">1</span> Elige un programa</div>
+        <div class="steps__item"><span class="steps__num">2</span> Abre el enlace</div>
+        <div class="steps__item"><span class="steps__num">3</span> Guarda en favoritos ⭐ si te ayuda</div>
+      </section>
+
       <section id="cards" class="grid" aria-label="Listado de programas"></section>
 
       <!-- Botón MÁS PROGRAMAS -->
       <div class="moreWrap" aria-label="Más programas">
-        <button id="btnMorePrograms" class="btn btn--ghost btn--xl" type="button">
-          Más programas
-        </button>
+        <button id="btnMorePrograms" class="btn btn--ghost btn--xl" type="button">Más programas</button>
       </div>
+
+      <section class="calmNote" aria-label="Mensaje de calma">
+        No tienes que hacerlo todo hoy. Un paso es suficiente.
+      </section>
 
       <section id="emptyState" class="empty" hidden aria-label="Sin enlaces">
         <h3>No hay enlaces aún</h3>
@@ -145,7 +211,7 @@
         <p>
           ¿Quieres sugerir una institución o mejorar la app?
           <br />
-          <a href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
+          <a class="link" href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
         </p>
 
         <div class="callout">
@@ -153,8 +219,44 @@
         </div>
       </article>
     </section>
-
   </main>
+
+  <!-- Botón flotante Arriba -->
+  <button id="btnTop" class="topBtn" type="button" aria-label="Volver arriba" hidden>⬆ Arriba</button>
+
+  <!-- Modal sugerir programa (sin backend: abre correo prellenado) -->
+  <dialog id="suggestDialog" class="dialog">
+    <form id="suggestForm" class="dialog__content" method="dialog">
+      <div class="dialog__header">
+        <h3 class="dialog__title">Sugerir un programa</h3>
+        <button class="iconBtn" value="cancel" aria-label="Cerrar">✕</button>
+      </div>
+
+      <p class="dialog__desc">
+        Completa estos datos y se abrirá tu correo con un mensaje listo para enviar.
+      </p>
+
+      <label class="field">
+        <span class="field__label">Nombre del programa</span>
+        <input class="input" id="sName" type="text" placeholder="Ej: CIAM Municipalidad de ..." required />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Enlace (URL)</span>
+        <input class="input" id="sUrl" type="url" placeholder="https://..." required />
+      </label>
+
+      <label class="field">
+        <span class="field__label">Comentario (opcional)</span>
+        <textarea class="input" id="sNote" rows="3" placeholder="¿Por qué lo recomiendas?"></textarea>
+      </label>
+
+      <div class="dialog__actions">
+        <button class="btn btn--primary" type="submit">Enviar sugerencia</button>
+        <button class="btn btn--ghost" value="cancel" type="button" id="btnSuggestClose">Cancelar</button>
+      </div>
+    </form>
+  </dialog>
 
   <footer class="footer" role="contentinfo">
     <div class="container footer__inner">
@@ -163,7 +265,7 @@
     </div>
   </footer>
 
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
