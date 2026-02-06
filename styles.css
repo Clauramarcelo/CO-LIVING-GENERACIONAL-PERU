@@ -37,7 +37,6 @@ body{
 
 .container{ width:min(1100px, 92vw); margin:0 auto; }
 .main{ padding: 12px 0 28px; }
-
 a{ color: inherit; }
 
 .skip-link{
@@ -74,7 +73,7 @@ a{ color: inherit; }
   gap:12px;
 }
 
-/* Título especial */
+/* Título */
 .brand__title{
   margin:0;
   line-height:1;
@@ -154,7 +153,7 @@ a{ color: inherit; }
 .panel{ display:none; }
 .panel.is-active{ display:block; }
 
-/* Bienvenida (Image.jpg) */
+/* Welcome con fondo SENIOR desde web */
 .welcome{
   position:relative;
   border-radius: var(--radius);
@@ -162,13 +161,22 @@ a{ color: inherit; }
   overflow:hidden;
   box-shadow: var(--shadow);
   margin: 10px 0 12px;
-  background: url("./Image.jpg") center/cover no-repeat;
+
+  /* Fondo desde Unsplash (seniors chess) */
+  background:
+    linear-gradient(180deg, rgba(251,244,232,.92), rgba(247,239,224,.92)),
+    url("https://images.unsplash.com/photo-1513159446162-54eb8bdaa79b?auto=format&fit=crop&w=1800&q=80");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
+
 .welcome__overlay{
   position:absolute;
   inset:0;
-  background: rgba(251,241,225,0.80);
+  background: rgba(251,241,225,0.86);
 }
+
 .welcome__inner{
   position:relative;
   z-index:2;
@@ -187,7 +195,7 @@ a{ color: inherit; }
   justify-self:end;
 }
 
-/* Asistente */
+/* Assistant */
 .assistant{
   margin: 12px 0 10px;
   padding: 12px;
@@ -208,8 +216,8 @@ a{ color: inherit; }
   justify-content:center;
 }
 
-/* Recommended blocks */
-.recommended{
+/* Blocks */
+.recommended, .favorites{
   margin: 12px 0 6px;
   padding: 12px;
   border-radius: var(--radius);
@@ -218,7 +226,7 @@ a{ color: inherit; }
   box-shadow: var(--shadow);
 }
 .recommended__header{ margin-bottom: 10px; }
-.recommended__title{ margin:0; font-size: 18px; }
+.recommended__title, .favorites__title{ margin:0; font-size: 18px; }
 .recommended__desc{ margin: 4px 0 0; color: var(--muted); }
 
 /* Buttons */
@@ -244,24 +252,10 @@ a{ color: inherit; }
 }
 .btn--ghost{ background: rgba(255,255,255,.80); }
 .btn--xl{ padding: 12px 16px; font-size: 18px; border-radius: 14px; }
-.btn--whatsapp{
-  background: rgba(34,197,94,.14);
-  border-color: rgba(34,197,94,.30);
-}
-.btn--call{
-  background: rgba(245,158,11,.16);
-  border-color: rgba(245,158,11,.35);
-}
+.btn--whatsapp{ background: rgba(34,197,94,.14); border-color: rgba(34,197,94,.30); }
+.btn--call{ background: rgba(245,158,11,.16); border-color: rgba(245,158,11,.35); }
 
-/* Favoritos */
-.favorites{
-  margin: 12px 0 6px;
-  padding: 12px;
-  border-radius: var(--radius);
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.75);
-  box-shadow: var(--shadow);
-}
+/* Favorites header */
 .favorites__header{
   display:flex;
   align-items:center;
@@ -270,7 +264,6 @@ a{ color: inherit; }
   flex-wrap:wrap;
   margin-bottom: 10px;
 }
-.favorites__title{ margin:0; font-size: 18px; }
 
 /* List header */
 .listHeader{
@@ -313,14 +306,12 @@ a{ color: inherit; }
   font-weight:900;
 }
 
-/* Grid */
+/* Grid + card */
 .grid{
   display:grid;
   gap:12px;
   grid-template-columns: repeat(3, 1fr);
 }
-
-/* Card */
 .card{
   border:1px solid var(--border);
   border-radius: var(--radius);
@@ -337,6 +328,7 @@ a{ color: inherit; }
   align-items:flex-start;
 }
 .card__title{ margin:0; font-size: 18px; }
+
 .badge{
   font-size: 12px;
   color: var(--text);
@@ -357,8 +349,6 @@ a{ color: inherit; }
   font-weight: 800;
 }
 .card__desc{ margin:0; color: var(--muted); font-size: 15px; }
-
-/* Tags */
 .tags{ display:flex; flex-wrap:wrap; gap:8px; }
 .tag{
   font-size: 12px;
@@ -368,8 +358,6 @@ a{ color: inherit; }
   border-radius: 999px;
   background: rgba(192,122,74,.08);
 }
-
-/* Actions */
 .card__actions{
   display:flex;
   align-items:center;
