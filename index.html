@@ -1,238 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="CO‑LIVING Generacional: guía simple para acompañar y orientar a personas adultas mayores." />
-  <title>CO‑LIVING Generacional</title>
-
-  <link rel="stylesheet" href="./styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CO-LIVING Generacional</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <a class="skip-link" href="#main">Saltar al contenido</a>
 
-  <header class="header" role="banner">
-    <div class="container header__inner">
-      <div class="brand" aria-label="Marca">
-        <div class="brand__text">
-          <h1 class="brand__title">
-            <span class="brand__titleMain">CO‑LIVING</span>
-            <span class="brand__titleSub">Generacional</span>
-          </h1>
-          <p class="brand__subtitle">Acompañamiento sereno • Comunidad • Oportunidades</p>
-        </div>
-      </div>
+<header class="header">
+  <div class="container">
+    <h1>CO-LIVING Generacional</h1>
+    <p class="subtitle">
+      Un espacio de apoyo y orientación para personas en etapa de transición laboral
+    </p>
+  </div>
+</header>
 
-      <div class="fontControls" aria-label="Controles de tamaño de letra">
-        <button id="btnFontDown" class="iconBtn" type="button" aria-label="Disminuir tamaño de letra">A−</button>
-        <button id="btnFontUp" class="iconBtn" type="button" aria-label="Aumentar tamaño de letra">A+</button>
-      </div>
+<section class="voiceBox">
+  <button id="btnVoice" class="btnVoice">🔊 Escuchar explicación</button>
+</section>
+
+<nav class="tabs container">
+  <button class="tab is-active" id="tab-programas">PROGRAMAS</button>
+  <button class="tab" id="tab-inscripcion">INSCRIPCIÓN</button>
+  <button class="tab" id="tab-nosotros">QUIÉNES SOMOS</button>
+</nav>
+
+<main class="container">
+
+  <!-- PROGRAMAS -->
+  <section id="panel-programas" class="panel is-active">
+    <h2>Programas de apoyo disponibles</h2>
+    <div id="cards" class="grid"></div>
+  </section>
+
+  <!-- INSCRIPCION -->
+  <section id="panel-inscripcion" class="panel">
+    <h2>Inscripción</h2>
+    <p>
+      Este espacio es informativo. No solicitamos datos personales ni inscripciones directas.
+    </p>
+    <div class="callout">
+      ✔ Orientación gratuita  
+      ✔ Información confiable  
+      ✔ Acompañamiento con respeto
     </div>
+  </section>
 
-    <nav class="tabs container" role="tablist" aria-label="Navegación principal">
-      <button class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-links" id="tab-links" type="button">
-        Programas
-      </button>
+  <!-- QUIENES SOMOS -->
+  <section id="panel-nosotros" class="panel">
+    <h2>Quiénes somos</h2>
+    <p>
+      CO-LIVING Generacional es un proyecto académico de innovación social que busca
+      acompañar a personas cesantes o en transición laboral, brindando información clara
+      y oportunidades confiables.
+    </p>
+  </section>
 
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-signup" id="tab-signup" type="button">
-        Inscripción <span class="tabChip" aria-hidden="true">Nuevo</span>
-      </button>
+</main>
 
-      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-about" id="tab-about" type="button">
-        Quiénes somos
-      </button>
-    </nav>
-  </header>
+<footer class="footer">
+  <small>© 2026 CO-LIVING Generacional</small>
+</footer>
 
-  <main id="main" class="container main" tabindex="-1">
+<script src="data.js"></script>
+<script src="app.js"></script>
 
-    <!-- ===================== -->
-    <!-- PANEL: PROGRAMAS -->
-    <!-- ===================== -->
-    <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
-
-      <!-- Banner bienvenida (SIN botones repetidos) -->
-      <section class="welcome" aria-label="Bienvenida">
-        <div class="welcome__overlay" aria-hidden="true"></div>
-
-        <div class="welcome__inner">
-          <div class="welcome__text">
-            <h2 class="welcome__title">Bienvenido/a</h2>
-
-            <p class="welcome__desc">
-              Reunimos opciones confiables para acompañarte en una etapa de transición, con calma y paso a paso.
-              Aquí encontrarás programas útiles para acceder a oportunidades reales.
-            </p>
-
-            <p class="welcome__desc">
-              No estás solo/a. Un paso pequeño puede ser un gran inicio.
-            </p>
-          </div>
-
-          <!-- SOLO 1 BOTÓN -->
-          <div class="welcome__actions" aria-label="Acción principal">
-            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">
-              Ver programas
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <!-- Favoritos -->
-      <section id="favoritesSection" class="favorites" hidden aria-label="Tus favoritos">
-        <div class="favorites__header">
-          <h3 class="favorites__title">Tus favoritos</h3>
-          <button id="btnClearFavs" class="btn btn--ghost" type="button">Quitar todos</button>
-        </div>
-        <div id="favoritesGrid" class="grid" aria-label="Listado de favoritos"></div>
-      </section>
-
-      <section class="listHeader" aria-label="Sección de programas">
-        <h3 class="listHeader__title" id="programsTitle">Programas disponibles</h3>
-        <p class="listHeader__subtitle" id="resultsCount">Cargando...</p>
-      </section>
-
-      <section class="steps" aria-label="Pasos simples">
-        <div class="steps__item"><span class="steps__num">1</span> Elige un programa</div>
-        <div class="steps__item"><span class="steps__num">2</span> Abre el enlace</div>
-        <div class="steps__item"><span class="steps__num">3</span> Sigue los pasos de inscripción</div>
-      </section>
-
-      <section id="cards" class="grid" aria-label="Listado de programas"></section>
-
-      <section id="emptyState" class="empty" hidden aria-label="Sin enlaces">
-        <h3>No hay programas cargados</h3>
-        <p>Agrega programas en el archivo <strong>data.js</strong>.</p>
-      </section>
-    </section>
-
-    <!-- ===================== -->
-    <!-- PANEL: INSCRIPCIÓN -->
-    <!-- ===================== -->
-    <section id="panel-signup" class="panel" role="tabpanel" aria-labelledby="tab-signup">
-      <article class="about">
-        <h2>Inscripción</h2>
-        <p class="muted">
-          Completa el formulario y tu inscripción quedará registrada en una lista (Google Sheets) mediante Google Forms. [1](https://sawebintercorp.blob.core.windows.net/pdfs/informe-Sostenibilidad-2022-ok.pdf)[2](https://bing.com/search?q=Intercorp+inclusi%c3%b3n+de+adultos+mayores+historias+de+impacto+sitio+intercorp.com.pe)
-        </p>
-
-        <div class="callout">
-          <strong>Privacidad:</strong> no pedimos DNI, dirección ni contraseñas. Solo datos básicos para orientarte.
-        </div>
-
-        <!-- Google Form embebido -->
-        <div class="embedWrap" aria-label="Formulario de inscripción">
-          <iframe
-            class="embedFrame"
-            src="https://docs.google.com/forms/d/e/1FAIpQLSdDq29HtVR4DFtz9byMMiHEPUw1QyHx343T3jOPzPGxVUEFEA/viewform?embedded=true"
-            width="100%"
-            height="950"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-            loading="lazy"
-            title="Formulario de inscripción">
-            Cargando…
-          </iframe>
-        </div>
-
-        <!-- Confirmación en la app -->
-        <div class="confirmBox" aria-label="Confirmación de inscripción">
-          <button id="btnConfirmSignup" class="btn btn--primary btn--xl" type="button">
-            ✅ Confirmar inscripción
-          </button>
-
-          <div id="confirmMsg" class="confirmMsg" hidden role="status" aria-live="polite">
-            <strong>¡Gracias!</strong> Si ya enviaste el formulario, tu inscripción quedó registrada.
-            <div class="confirmSub">
-              Puedes ver la lista o compartir el enlace por WhatsApp.
-            </div>
-          </div>
-        </div>
-
-        <!-- Botones: lista / WhatsApp -->
-        <div class="formActions">
-          <a
-            id="sheetLinkBtn"
-            class="btn btn--ghost btn--xl"
-            href="https://docs.google.com/spreadsheets/d/1G41B6m1V0UVbkMSb7MLFVImaSTHMKi1ex-N9Xrt8c0s/edit?usp=sharing"
-            target="_blank"
-            rel="noopener">
-            📄 Ver lista de inscritos
-          </a>
-
-          <a
-            id="whatsShareBtn"
-            class="btn btn--primary btn--xl"
-            href="#"
-            target="_blank"
-            rel="noopener">
-            📲 Enviar link por WhatsApp
-          </a>
-        </div>
-
-        <p class="muted" style="margin-top:10px;">
-          El botón de WhatsApp abre un mensaje listo; luego lo reenvías a tu grupo. [3](https://pe.todosnegocios.com/essalud-cam-centro-del-adulto-mayor-01-4492497)[4](https://pe.near-place.com/essalud-cam-centro-del-adulto-mayor-calle-octavio-paz-calera-de-la-merced-276-surquillo-lima)
-        </p>
-      </article>
-    </section>
-
-    <!-- ===================== -->
-    <!-- PANEL: QUIÉNES SOMOS -->
-    <!-- ===================== -->
-    <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about">
-      <article class="about">
-        <h2>Quiénes somos</h2>
-
-        <p>
-          <strong>CO‑LIVING Generacional</strong> es una propuesta creada para acompañar, orientar y brindar tranquilidad
-          a personas adultas en etapas de transición, acercando información confiable y oportunidades reales.
-        </p>
-
-        <p>
-          Este proyecto se desarrolla como parte del <strong>Curso de Innovación Social de la Universidad Continental</strong>,
-          con el objetivo de construir soluciones con impacto social positivo.
-        </p>
-
-        <h3>Nuestro equipo</h3>
-        <p>
-          Somos el grupo de apoyo e innovación del proyecto CO‑LIVING Generacional:
-        </p>
-
-        <ul class="teamList">
-          <li><strong>Flores de la Cruz, Claudia Andrea</strong></li>
-          <li><strong>Gonzales Almanza, Elizabeth</strong></li>
-          <li><strong>Vargas Solis, Karin</strong></li>
-          <li><strong>Sierralta Calderón, Erick</strong></li>
-          <li><strong>Laura Marcelo, César</strong></li>
-        </ul>
-
-        <h3>Nuestro propósito</h3>
-        <p>
-          Diseñar una experiencia digital simple y accesible que facilite el acceso a programas para adultos mayores,
-          con un enfoque humano, claro y respetuoso.
-        </p>
-
-        <div class="callout">
-          <strong>Nota:</strong> CO‑LIVING Generacional es una guía informativa y no reemplaza asesoría psicológica, médica o legal.
-        </div>
-      </article>
-    </section>
-
-  </main>
-
-  <!-- Botón flotante arriba -->
-  <button id="btnTop" class="topBtn" type="button" aria-label="Volver arriba" hidden>⬆ Arriba</button>
-
-  <footer class="footer" role="contentinfo">
-    <div class="container footer__inner">
-      <small>© <span id="year"></span> CO‑LIVING Generacional — Hecho con propósito.</small>
-      <small class="muted">Accesible • Simple • Claro</small>
-    </div>
-  </footer>
-
-  <script src="./data.js"></script>
-  <script src="./app.js"></script>
 </body>
 </html>
+
