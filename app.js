@@ -157,8 +157,8 @@ function cardTemplate(item){
   const location = escapeHTML(item.location || "");
   const mode = escapeHTML(item.mode || "Información");
   const host = escapeHTML(safeHostname(item.url));
-  const url = escapeHTML(item.url);
 
+  const url = escapeHTML(item.url);
   const tags = (item.interests || [])
     .slice(0, 6)
     .map(t => `<span class="tag">${escapeHTML(t)}</span>`)
