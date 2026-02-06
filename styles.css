@@ -169,7 +169,7 @@ a{ color: inherit; }
 .panel{ display:none; }
 .panel.is-active{ display:block; }
 
-/* Bienvenida */
+/* Bienvenida (usa Image.jpg) */
 .welcome{
   position:relative;
   border-radius: var(--radius);
@@ -177,7 +177,7 @@ a{ color: inherit; }
   overflow:hidden;
   box-shadow: var(--shadow);
   margin: 10px 0 12px;
-  background: url("./image.png") center/cover no-repeat;
+  background: url("./Image.jpg") center/cover no-repeat;
 }
 
 .welcome__overlay{
@@ -214,7 +214,7 @@ a{ color: inherit; }
   justify-self:end;
 }
 
-/* Buttons (para button y a) */
+/* Buttons */
 .btn{
   border:1px solid var(--border);
   background: linear-gradient(135deg, rgba(192,122,74,.18), rgba(106,166,166,.16));
