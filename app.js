@@ -41,9 +41,7 @@ function contactButtons(item){
     const wa = makeWhatsAppLink(item.whatsapp, item.whatsappText);
     if (wa){
       btns.push(
-        `<a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener noreferrer" aria-label="Abrir WhatsApp">
-          💬 WhatsApp
-        </a>`
+        `<a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`
       );
     }
   }
@@ -52,9 +50,7 @@ function contactButtons(item){
     const tel = makeTelLink(item.phone);
     if (tel){
       btns.push(
-        `<a class="btn btn--call" href="${tel}" aria-label="Llamar por teléfono">
-          📞 Llamar
-        </a>`
+        `<a class="btn btn--call" href="${tel}">📞 Llamar</a>`
       );
     }
   }
@@ -71,8 +67,7 @@ function cardTemplate(item){
   const mode = escapeHTML(item.mode || "Información");
   const tags = (item.interests || []).slice(0, 6).map(t => `<span class="tag">${escapeHTML(t)}</span>`).join("");
   const host = escapeHTML(safeHostname(item.url));
-
-  const link = escapeHTML(item.url);
+  const url = escapeHTML(item.url);
 
   return `
     <article class="card">
@@ -90,9 +85,7 @@ function cardTemplate(item){
 
       <div class="card__actions">
         <div class="actionsLeft">
-          <a class="btn btn--primary" href="${link}" target="_blank" rel="noopener noreferrer" aria-label="Abrir enlace del programa">
-            Abrir enlace →
-          </a>
+          <a class="btn btn--primary" href="${url}" target="_blank" rel="noopener noreferrer">Abrir enlace →</a>
           ${contactButtons(item)}
         </div>
 
@@ -163,42 +156,16 @@ function setupTabs(){
   });
 }
 
-/* Portada */
-function hideCover(){
-  const cover = $("#cover");
-  if (!cover) return;
-  cover.style.display = "none";
-  localStorage.setItem("cover_seen", "1");
-}
-
-function scrollToPrograms(){
-  const target = $("#programsTitle") || $("#main");
-  target.scrollIntoView({ behavior: "smooth", block: "start" });
-}
-
-function setupCover(){
-  const coverSeen = localStorage.getItem("cover_seen") === "1";
-  const cover = $("#cover");
-
-  if (coverSeen && cover){
-    cover.style.display = "none";
-    return;
-  }
-
-  $("#btnStart")?.addEventListener("click", () => {
-    hideCover();
-    scrollToPrograms();
+/* Botones rápidos de la bienvenida */
+function setupWelcomeButtons(){
+  $("#btnFocusPrograms")?.addEventListener("click", () => {
+    setActiveTab("links");
+    // Enfoca el inicio de tarjetas sin obligar scroll; si ya está visible, no “molesta”
+    $("#programsTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
 
-  $("#btnGoPrograms")?.addEventListener("click", () => {
-    hideCover();
-    scrollToPrograms();
-  });
-
-  $("#btnGoAbout")?.addEventListener("click", () => {
-    hideCover();
+  $("#btnOpenAbout")?.addEventListener("click", () => {
     setActiveTab("about");
-    $("#panel-about").scrollIntoView({ behavior: "smooth", block: "start" });
   });
 }
 
@@ -206,7 +173,7 @@ function setupCover(){
 function init(){
   $("#year").textContent = new Date().getFullYear();
   setupTabs();
-  setupCover();
+  setupWelcomeButtons();
   render();
 }
 
