@@ -1,11 +1,11 @@
 window.LINKS_DATA = [
   {
-    id: "intercorp-golden-crew",
+    id: "intercorp-inclusion",
     title: "Intercorp – Inclusión de adultos mayores",
-    description: "Información sobre inclusión de adultos mayores y oportunidades relacionadas.",
+    description: "Oportunidades laborales vinculadas a inclusión de adultos mayores.",
     url: "https://www.intercorp.com.pe/es/nuestro-impacto-sostenible/historias-de-impacto/inclusion-de-adultos-mayores",
     mode: "Virtual",
-    interests: ["Empleo", "Inclusión", "Adulto mayor"],
+    interests: ["Empleo", "Adulto mayor"],
     location: "Perú",
     provider: "Intercorp",
     trust: "Privado",
@@ -15,10 +15,10 @@ window.LINKS_DATA = [
   {
     id: "essalud-cam",
     title: "EsSalud – CAM (Centro del Adulto Mayor)",
-    description: "Información sobre los Centros del Adulto Mayor y sus actividades.",
+    description: "Acceso a talleres y actividades del adulto mayor en los CAM.",
     url: "https://www.essalud.gob.pe/transparencia/observatorio_de_poblaciones_vulnerables/cam.html",
     mode: "Mixta",
-    interests: ["Bienestar", "Comunidad", "Adulto mayor"],
+    interests: ["Bienestar", "Adulto mayor"],
     location: "Perú",
     provider: "EsSalud",
     trust: "Oficial",
@@ -26,78 +26,29 @@ window.LINKS_DATA = [
     highlight: true
   },
   {
-    id: "contraloria-mentores",
-    title: "Contraloría – Mentores de Control Social (60+)",
-    description: "Voluntariado para personas de 60 años a más que aportan experiencia a su comunidad.",
-    url: "https://controlsocial.contraloria.gob.pe/mentoresdecontrolsocial/index.html",
-    mode: "Mixta",
-    interests: ["Voluntariado", "Comunidad", "60+"],
-    location: "Perú",
-    provider: "Contraloría",
-    trust: "Oficial (GOB.PE)",
-    tier: "core"
-  },
-  {
-    id: "proa-home",
-    title: "PROA – Plataforma peruana de voluntariado",
-    description: "Plataforma que conecta personas voluntarias con organizaciones solidarias y causas sociales.",
-    url: "https://proa.pe/",
-    mode: "Virtual",
-    interests: ["Voluntariado", "Causas", "Comunidad"],
-    location: "Perú",
-    provider: "PROA",
-    trust: "Plataforma",
-    tier: "core",
-    whatsappText: "Hola, quiero información sobre oportunidades de voluntariado."
-  },
-
-  /* EXTRA */
-  {
-    id: "mimp-gratitud",
-    title: "MIMP – Programa Nacional Gratitud",
-    description: "Servicios especializados para personas adultas mayores en situación de riesgo.",
-    url: "https://www.gob.pe/institucion/mimp/noticias/943757-mimp-programa-nacional-gratitud-beneficiara-al-2025-a-mas-de-60-000-personas-adultas-mayores-en-situacion-de-riesgo",
-    mode: "Mixta",
-    interests: ["Bienestar", "Protección", "Adulto mayor"],
-    location: "Perú",
-    provider: "MIMP",
-    trust: "Oficial (GOB.PE)",
-    tier: "extra"
-  },
-  {
-    id: "inabif-gob",
-    title: "INABIF – Programa Integral Nacional para el Bienestar Familiar",
-    description: "Entidad del Estado con servicios y orientación para población en situación de vulnerabilidad.",
-    url: "https://www.gob.pe/inabif",
-    mode: "Virtual",
-    interests: ["Bienestar", "Servicios del Estado", "Apoyo social"],
-    location: "Perú",
-    provider: "INABIF",
-    trust: "Oficial (GOB.PE)",
-    tier: "extra"
-  },
-  {
     id: "mtpe-plateada",
     title: "MTPE – Maratón del Empleo Plateada",
-    description: "Jornada de oportunidades laborales formales para adultos mayores (nota oficial).",
+    description: "Convocatorias y eventos con oportunidades laborales para adultos mayores.",
     url: "https://www.gob.pe/institucion/mtpe/noticias/1234838-mtpe-realiza-maraton-del-empleo-plateada-con-mas-de-614-vacantes-para-adultos-mayores",
     mode: "Presencial",
-    interests: ["Empleo", "Orientación", "Reinserción laboral", "CV"],
-    location: "Lima / Perú",
+    interests: ["Empleo", "Adulto mayor"],
+    location: "Perú",
     provider: "MTPE",
     trust: "Oficial (GOB.PE)",
-    tier: "extra"
+    tier: "core",
+    highlight: true
   },
   {
-    id: "eldespegue-creademy",
+    id: "eldespegue",
     title: "AFP Integra – Adultos Imparables: El Despegue",
-    description: "Programa gratuito para emprendimientos liderados por personas +55.",
+    description: "Programa de emprendimiento para personas de 55 años a más (convocatorias).",
     url: "https://creademy.la/eldespegue/el-despegue-2025/",
     mode: "Virtual",
-    interests: ["Emprendimiento", "Capacitación", "55+"],
+    interests: ["Emprendimiento", "55+"],
     location: "Perú",
     provider: "AFP Integra / ChangeLab",
     trust: "Privado",
-    tier: "extra"
+    tier: "core",
+    highlight: true
   }
 ];
