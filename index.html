@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
+  <meta name="description" content="CO‑LIVING Generacional: guía simple para acompañar y orientar a personas adultas mayores." />
   <title>CO‑LIVING Generacional</title>
 
   <link rel="stylesheet" href="./styles.css" />
@@ -36,7 +36,7 @@
       </button>
 
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-signup" id="tab-signup" type="button">
-        Inscripción
+        Inscripción <span class="tabChip" aria-hidden="true">Nuevo</span>
       </button>
 
       <button class="tab" role="tab" aria-selected="false" aria-controls="panel-about" id="tab-about" type="button">
@@ -52,7 +52,7 @@
     <!-- ===================== -->
     <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
 
-      <!-- Banner bienvenida -->
+      <!-- Banner bienvenida (SIN botones repetidos) -->
       <section class="welcome" aria-label="Bienvenida">
         <div class="welcome__overlay" aria-hidden="true"></div>
 
@@ -61,62 +61,22 @@
             <h2 class="welcome__title">Bienvenido/a</h2>
 
             <p class="welcome__desc">
-              Somos un grupo comprometido en acompañarte con respeto y tranquilidad.
-              Sabemos que pensar en <em>“¿qué será de mí cuando deje de trabajar?”</em> puede generar incertidumbre.
-              Por eso reunimos aquí opciones confiables para avanzar <strong>paso a paso, con calma</strong>.
+              Reunimos opciones confiables para acompañarte en una etapa de transición, con calma y paso a paso.
+              Aquí encontrarás programas útiles para acceder a oportunidades reales.
             </p>
 
             <p class="welcome__desc">
-              Acompañamos con respeto a quienes han dedicado años de su vida al trabajo y hoy buscan
-              nuevas maneras de seguir aportando y sintiéndose bien. <strong>No estás solo/a</strong>.
+              No estás solo/a. Un paso pequeño puede ser un gran inicio.
             </p>
           </div>
 
-          <div class="welcome__actions" aria-label="Acciones rápidas">
-            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">Ver programas</button>
-            <button class="btn btn--ghost btn--xl" type="button" id="btnOpenSignup">Inscribirme</button>
-            <button class="btn btn--ghost btn--xl" type="button" id="btnOpenAbout">Quiénes somos</button>
+          <!-- SOLO 1 BOTÓN -->
+          <div class="welcome__actions" aria-label="Acción principal">
+            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">
+              Ver programas
+            </button>
           </div>
         </div>
-      </section>
-
-      <!-- Asistente (sin “te acompaño…”) -->
-      <section class="assistant" aria-label="Asistente de recomendación">
-        <h3 class="assistant__title">Elige una opción y te mostramos sugerencias</h3>
-        <p class="assistant__desc">
-          Con calma: no es una decisión final. Solo sirve para orientarte con ideas y programas.
-        </p>
-
-        <div class="assistant__buttons" role="group" aria-label="Opciones para empezar">
-          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Empleo">Un paso hacia un trabajo</button>
-          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Capacitación">Un paso para aprender algo nuevo</button>
-          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Emprendimiento">Un paso hacia mi propio negocio</button>
-          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Voluntariado">Un paso para ayudar</button>
-          <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Bienestar">Un paso para sentirme acompañado/a</button>
-          <button class="btn btn--primary btn--xl assistantBtn" type="button" data-interest="Ayuda">No sé aún… muéstrame opciones simples</button>
-        </div>
-      </section>
-
-      <!-- Recomendados para ti -->
-      <section id="forYouSection" class="recommended" hidden aria-label="Recomendados para ti">
-        <div class="recommended__header">
-          <h3 class="recommended__title">Recomendados para ti</h3>
-          <p id="forYouSubtitle" class="recommended__desc">Según tu selección.</p>
-        </div>
-        <div id="forYouGrid" class="grid" aria-label="Programas recomendados para ti"></div>
-
-        <div class="moreWrap">
-          <button id="btnClearForYou" class="btn btn--ghost btn--xl" type="button">Elegir otra opción</button>
-        </div>
-      </section>
-
-      <!-- Recomendados para empezar -->
-      <section id="recommendedSection" class="recommended" hidden aria-label="Recomendados para empezar">
-        <div class="recommended__header">
-          <h3 class="recommended__title">Recomendados para empezar</h3>
-          <p class="recommended__desc">Opciones simples y confiables para dar el primer paso.</p>
-        </div>
-        <div id="recommendedGrid" class="grid" aria-label="Listado de recomendados"></div>
       </section>
 
       <!-- Favoritos -->
@@ -136,22 +96,14 @@
       <section class="steps" aria-label="Pasos simples">
         <div class="steps__item"><span class="steps__num">1</span> Elige un programa</div>
         <div class="steps__item"><span class="steps__num">2</span> Abre el enlace</div>
-        <div class="steps__item"><span class="steps__num">3</span> Guarda en favoritos ⭐ si te ayuda</div>
+        <div class="steps__item"><span class="steps__num">3</span> Sigue los pasos de inscripción</div>
       </section>
 
       <section id="cards" class="grid" aria-label="Listado de programas"></section>
 
-      <div class="moreWrap" aria-label="Más programas">
-        <button id="btnMorePrograms" class="btn btn--ghost btn--xl" type="button">Más programas</button>
-      </div>
-
-      <section class="calmNote" aria-label="Mensaje de calma">
-        No tienes que hacerlo todo hoy. Un paso es suficiente.
-      </section>
-
       <section id="emptyState" class="empty" hidden aria-label="Sin enlaces">
-        <h3>No hay enlaces aún</h3>
-        <p>Agrega más programas en el archivo <strong>data.js</strong>.</p>
+        <h3>No hay programas cargados</h3>
+        <p>Agrega programas en el archivo <strong>data.js</strong>.</p>
       </section>
     </section>
 
@@ -162,22 +114,25 @@
       <article class="about">
         <h2>Inscripción</h2>
         <p class="muted">
-          Completa la inscripción y se guardará automáticamente en nuestra lista (Google Sheets) mediante Google Forms. [1](https://sawebintercorp.blob.core.windows.net/pdfs/informe-Sostenibilidad-2022-ok.pdf)[2](https://bing.com/search?q=Intercorp+inclusi%c3%b3n+de+adultos+mayores+historias+de+impacto+sitio+intercorp.com.pe)
+          Completa el formulario y tu inscripción quedará registrada en una lista (Google Sheets) mediante Google Forms. [1](https://sawebintercorp.blob.core.windows.net/pdfs/informe-Sostenibilidad-2022-ok.pdf)[2](https://bing.com/search?q=Intercorp+inclusi%c3%b3n+de+adultos+mayores+historias+de+impacto+sitio+intercorp.com.pe)
         </p>
 
         <div class="callout">
           <strong>Privacidad:</strong> no pedimos DNI, dirección ni contraseñas. Solo datos básicos para orientarte.
         </div>
 
-        <!-- Form embebido -->
+        <!-- Google Form embebido -->
         <div class="embedWrap" aria-label="Formulario de inscripción">
           <iframe
             class="embedFrame"
             src="https://docs.google.com/forms/d/e/1FAIpQLSdDq29HtVR4DFtz9byMMiHEPUw1QyHx343T3jOPzPGxVUEFEA/viewform?embedded=true"
-            height="900"
+            width="100%"
+            height="950"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-            title="Formulario de inscripción CO-LIVING">
+            title="Formulario de inscripción">
             Cargando…
           </iframe>
         </div>
@@ -196,7 +151,7 @@
           </div>
         </div>
 
-        <!-- Botones de lista + WhatsApp -->
+        <!-- Botones: lista / WhatsApp -->
         <div class="formActions">
           <a
             id="sheetLinkBtn"
@@ -209,7 +164,7 @@
 
           <a
             id="whatsShareBtn"
-            class="btn btn--ghost btn--xl"
+            class="btn btn--primary btn--xl"
             href="#"
             target="_blank"
             rel="noopener">
@@ -218,7 +173,7 @@
         </div>
 
         <p class="muted" style="margin-top:10px;">
-          El botón de WhatsApp abre un mensaje listo; luego lo reenvías a tu grupo. [4](https://pe.todosnegocios.com/essalud-cam-centro-del-adulto-mayor-01-4492497)[5](https://pe.near-place.com/essalud-cam-centro-del-adulto-mayor-calle-octavio-paz-calera-de-la-merced-276-surquillo-lima)
+          El botón de WhatsApp abre un mensaje listo; luego lo reenvías a tu grupo. [3](https://pe.todosnegocios.com/essalud-cam-centro-del-adulto-mayor-01-4492497)[4](https://pe.near-place.com/essalud-cam-centro-del-adulto-mayor-calle-octavio-paz-calera-de-la-merced-276-surquillo-lima)
         </p>
       </article>
     </section>
@@ -229,18 +184,38 @@
     <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about">
       <article class="about">
         <h2>Quiénes somos</h2>
+
         <p>
-          Somos un grupo que desea acompañarte en una etapa de transición.
-          Nuestra meta es reducir la angustia y la incertidumbre con información clara y accesible.
+          <strong>CO‑LIVING Generacional</strong> es una propuesta creada para acompañar, orientar y brindar tranquilidad
+          a personas adultas en etapas de transición, acercando información confiable y oportunidades reales.
         </p>
 
-        <h3>Nuestra misión</h3>
         <p>
-          Disminuir la dificultad de buscar información en internet con una experiencia simple, accesible y humana.
+          Este proyecto se desarrolla como parte del <strong>Curso de Innovación Social de la Universidad Continental</strong>,
+          con el objetivo de construir soluciones con impacto social positivo.
+        </p>
+
+        <h3>Nuestro equipo</h3>
+        <p>
+          Somos el grupo de apoyo e innovación del proyecto CO‑LIVING Generacional:
+        </p>
+
+        <ul class="teamList">
+          <li><strong>Flores de la Cruz, Claudia Andrea</strong></li>
+          <li><strong>Gonzales Almanza, Elizabeth</strong></li>
+          <li><strong>Vargas Solis, Karin</strong></li>
+          <li><strong>Sierralta Calderón, Erick</strong></li>
+          <li><strong>Laura Marcelo, César</strong></li>
+        </ul>
+
+        <h3>Nuestro propósito</h3>
+        <p>
+          Diseñar una experiencia digital simple y accesible que facilite el acceso a programas para adultos mayores,
+          con un enfoque humano, claro y respetuoso.
         </p>
 
         <div class="callout">
-          <strong>Nota:</strong> esta app no reemplaza asesoría psicológica, médica o legal. Es una guía para facilitar acceso a recursos.
+          <strong>Nota:</strong> CO‑LIVING Generacional es una guía informativa y no reemplaza asesoría psicológica, médica o legal.
         </div>
       </article>
     </section>
