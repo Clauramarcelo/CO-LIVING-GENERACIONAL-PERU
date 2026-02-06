@@ -3,19 +3,78 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="CO‑LIVING Generacional: enlaces claros y accesibles para programas de apoyo, comunidad y oportunidades." />
-  <title>CO‑LIVING Generacional | Programas</title>
+  <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
+  <title>CO‑LIVING Generacional</title>
 
+  <link rel="icon" href="logo.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
   <a class="skip-link" href="#main">Saltar al contenido</a>
 
+  <!-- PORTADA -->
+  <section id="cover" class="cover" aria-label="Portada de bienvenida">
+    <div class="cover__overlay" aria-hidden="true"></div>
+
+    <div class="container cover__inner">
+      <img class="cover__logo" src="logo.svg" alt="Logo CO‑LIVING Generacional" />
+
+      <h1 class="cover__title">CO‑LIVING Generacional</h1>
+
+      <p class="cover__subtitle">
+        Un espacio creado para acompañarte en esta nueva etapa con serenidad,
+        apoyo y oportunidades reales.
+      </p>
+
+      <div class="cover__card" role="note" aria-label="Mensaje de bienvenida">
+        <h2 class="cover__cardTitle">Bienvenido/a</h2>
+
+        <p>
+          Somos un grupo comprometido en acompañarte con respeto y tranquilidad.
+          Sabemos que pensar en <em>“¿qué será de mí cuando deje de trabajar?”</em>
+          puede generar incertidumbre, y por eso creamos este espacio:
+          para brindarte orientación, claridad y recursos confiables.
+        </p>
+
+        <p>
+          Acompañamos con respeto a quienes han dedicado años de su vida al trabajo y hoy buscan
+          nuevas maneras de seguir aportando y sintiéndose bien. Tu experiencia y tu historia
+          siguen siendo valiosas. <strong>No estás solo/a</strong>.
+        </p>
+
+        <ul class="cover__list">
+          <li>Enlaces confiables en un solo lugar.</li>
+          <li>Tarjetas claras con información corta y útil.</li>
+          <li>Botones directos para abrir enlace, WhatsApp o llamar (si existe contacto).</li>
+        </ul>
+
+        <p class="cover__tip">
+          <strong>Consejo:</strong> elige una opción y avanza paso a paso. Puedes volver cuando quieras.
+        </p>
+      </div>
+
+      <div class="cover__actions" aria-label="Acciones principales">
+        <button id="btnStart" class="btn btn--primary btn--xl" type="button">
+          Empezar
+        </button>
+        <button id="btnGoPrograms" class="btn btn--ghost btn--xl" type="button">
+          Ver programas
+        </button>
+        <button id="btnGoAbout" class="btn btn--ghost btn--xl" type="button">
+          Quiénes somos
+        </button>
+      </div>
+
+      <p class="cover__footer">Calma • Acompañamiento • Claridad</p>
+    </div>
+  </section>
+
+  <!-- APP -->
   <header class="header" role="banner">
     <div class="container header__inner">
       <div class="brand" aria-label="Marca">
-        <div class="brand__logo" aria-hidden="true">🤝</div>
+        <img class="brand__logoImg" src="logo.svg" alt="CO‑LIVING Generacional" />
         <div class="brand__text">
           <h1 class="brand__title">CO‑LIVING Generacional</h1>
           <p class="brand__subtitle">Opciones claras para apoyo, comunidad y oportunidades</p>
@@ -23,7 +82,7 @@
       </div>
     </div>
 
-    <nav class="tabs container" aria-label="Navegación principal">
+    <nav class="tabs container" role="tablist" aria-label="Navegación principal">
       <button class="tab is-active"
               role="tab"
               aria-selected="true"
@@ -62,7 +121,7 @@
       </section>
 
       <section class="listHeader" aria-label="Sección de programas">
-        <h3 class="listHeader__title">Programas disponibles</h3>
+        <h3 class="listHeader__title" id="programsTitle">Programas disponibles</h3>
         <p class="listHeader__subtitle" id="resultsCount">Cargando...</p>
       </section>
 
