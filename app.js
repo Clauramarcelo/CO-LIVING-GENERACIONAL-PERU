@@ -63,7 +63,7 @@ function toggleFavorite(id){
   renderAll();
 }
 
-/* ===== Tabs ===== */
+/* ===== Tabs (3) ===== */
 function setActiveTab(which){
   const tabs = {
     links:  { tab: $("#tab-links"),  panel: $("#panel-links") },
@@ -78,13 +78,13 @@ function setActiveTab(which){
     tabs[k].tab.setAttribute("aria-selected", on ? "true" : "false");
   });
 
-  $("#main").focus();
+  $("#main")?.focus();
 }
 
 function setupTabs(){
-  $("#tab-links").addEventListener("click", () => setActiveTab("links"));
-  $("#tab-signup").addEventListener("click", () => setActiveTab("signup"));
-  $("#tab-about").addEventListener("click", () => setActiveTab("about"));
+  $("#tab-links")?.addEventListener("click", () => setActiveTab("links"));
+  $("#tab-signup")?.addEventListener("click", () => setActiveTab("signup"));
+  $("#tab-about")?.addEventListener("click", () => setActiveTab("about"));
 }
 
 /* ===== Botones rápidos ===== */
@@ -93,8 +93,32 @@ function setupQuickButtons(){
     setActiveTab("links");
     $("#programsTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
   });
+
   $("#btnOpenSignup")?.addEventListener("click", () => setActiveTab("signup"));
   $("#btnOpenAbout")?.addEventListener("click", () => setActiveTab("about"));
+}
+
+/* ===== Confirmación ===== */
+function setupConfirmSignup(){
+  const btn = $("#btnConfirmSignup");
+  const msg = $("#confirmMsg");
+  if (!btn || !msg) return;
+
+  btn.addEventListener("click", () => {
+    msg.hidden = false;
+    msg.scrollIntoView({ behavior: "smooth", block: "center" });
+  });
+}
+
+/* ===== WhatsApp share del Sheet ===== */
+function setupWhatsappShare(){
+  const sheetBtn = $("#sheetLinkBtn");
+  const waBtn = $("#whatsShareBtn");
+  if (!sheetBtn || !waBtn) return;
+
+  const sheetUrl = sheetBtn.getAttribute("href");
+  const text = `Lista de inscritos CO‑LIVING Generacional: ${sheetUrl}`;
+  waBtn.href = `https://wa.me/?text=${encodeURIComponent(text)}`;
 }
 
 /* ===== Contact buttons ===== */
@@ -111,7 +135,7 @@ function contactButtons(item){
   return btns.join("");
 }
 
-/* ===== Card template (links correctos) ===== */
+/* ===== Card template ===== */
 function cardTemplate(item){
   const title = escapeHTML(item.title);
   const desc = escapeHTML(item.description);
@@ -130,6 +154,7 @@ function cardTemplate(item){
   const isFav = state.favorites.has(item.id);
   const favClass = isFav ? "favBtn is-on" : "favBtn";
   const favLabel = isFav ? "Quitar de favoritos" : "Guardar en favoritos";
+
   const badgeStart = item.highlight ? `<span class="badge badge--start">Empieza aquí</span>` : "";
   const badgeTrust = trust ? `<span class="badge badge--trust">${trust}</span>` : "";
 
@@ -152,7 +177,7 @@ function cardTemplate(item){
 
       <div class="card__actions">
         <div class="actionsLeft">
-          <a class="btn btn--primary" href="${url}" target="_blank" rel="noopener">Abrir enlace →</a>
+          <a class="btn btn--ghost" href="${url}" target="_blank" rel="noopener">Abrir enlace →</a>
           ${contactButtons(item)}
           <button class="${favClass}" type="button" data-fav="${escapeHTML(item.id)}" aria-label="${favLabel}">
             ${isFav ? "★" : "☆"}
@@ -246,15 +271,12 @@ function scoreProgram(program, selected){
     if (program.tier === "core") score += 2;
     return score;
   }
-
   if (tags.includes(sel)) score += 8;
   if (tags.some(t => t.includes(sel) || sel.includes(t))) score += 4;
   if (title.includes(sel)) score += 3;
   if (desc.includes(sel)) score += 2;
-
   if (program.highlight) score += 2;
   if (trust.includes("oficial")) score += 1;
-
   return score;
 }
 function getRecommendations(selected, limit = 5){
@@ -309,15 +331,16 @@ function setupFontControls(){
   $("#btnFontDown")?.addEventListener("click", () => { state.fontScale -= 0.05; applyFontScale(); });
 }
 
-/* ===== WhatsApp share del Sheet ===== */
-function setupWhatsappShare(){
-  const sheetBtn = $("#sheetLinkBtn");
-  const waBtn = $("#whatsShareBtn");
-  if (!sheetBtn || !waBtn) return;
+/* ===== Botón arriba ===== */
+function setupTopButton(){
+  const btn = $("#btnTop");
+  if (!btn) return;
 
-  const sheetUrl = sheetBtn.getAttribute("href");
-  const text = `Lista de inscritos CO‑LIVING Generacional: ${sheetUrl}`;
-  waBtn.href = `https://wa.me/?text=${encodeURIComponent(text)}`;
+  const onScroll = () => { btn.hidden = !(window.scrollY > 380); };
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
+  btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 }
 
 /* ===== Render all ===== */
@@ -337,6 +360,8 @@ function init(){
   setupAssistant();
   setupMorePrograms();
   setupFontControls();
+  setupTopButton();
+  setupConfirmSignup();
   setupWhatsappShare();
 
   renderAll();
