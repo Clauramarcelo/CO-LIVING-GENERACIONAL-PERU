@@ -1,5 +1,4 @@
 window.LINKS_DATA = [
-  /* ===== CORE ===== */
   {
     id: "intercorp-golden-crew",
     title: "Intercorp – Inclusión de adultos mayores",
@@ -52,7 +51,7 @@ window.LINKS_DATA = [
     whatsappText: "Hola, quiero información sobre oportunidades de voluntariado."
   },
 
-  /* ===== EXTRA ===== */
+  /* EXTRA */
   {
     id: "mimp-gratitud",
     title: "MIMP – Programa Nacional Gratitud",
@@ -99,54 +98,6 @@ window.LINKS_DATA = [
     location: "Perú",
     provider: "AFP Integra / ChangeLab",
     trust: "Privado",
-    tier: "extra"
-  },
-  {
-    id: "iadb-guia-senior",
-    title: "Guía de Emprendimiento Sénior (50+) – BID Lab + Emprende UP",
-    description: "Guía gratuita para emprender o potenciar un emprendimiento después de los 50.",
-    url: "https://publications.iadb.org/es/guia-de-emprendimiento-senior-en-el-peru",
-    mode: "Virtual",
-    interests: ["Emprendimiento", "Capacitación", "Formación", "50+"],
-    location: "Perú",
-    provider: "BID Lab / Emprende UP",
-    trust: "Organismo",
-    tier: "extra"
-  },
-  {
-    id: "expand-peru-ancianos",
-    title: "Expand Perú – Voluntariado con adultos mayores (Huancayo)",
-    description: "Voluntariado enfocado en acompañamiento y apoyo a personas mayores.",
-    url: "https://www.expandperu.org/voluntariado-peru-ancianos/",
-    mode: "Presencial",
-    interests: ["Voluntariado", "Comunidad", "Acompañamiento", "Bienestar"],
-    location: "Huancayo / Perú",
-    provider: "Expand Perú",
-    trust: "ONG",
-    tier: "extra"
-  },
-  {
-    id: "prima-voluntariado",
-    title: "Prima AFP – Voluntariado para adultos mayores",
-    description: "Voluntariado dirigido a adultos mayores en abandono y pobreza extrema.",
-    url: "https://www.prima.com.pe/public-zone/sobre-prima-afp/responsabilidad-social/voluntariado-de-prima-afp/",
-    mode: "Presencial",
-    interests: ["Voluntariado", "Comunidad", "Apoyo social"],
-    location: "Perú",
-    provider: "Prima AFP",
-    trust: "Privado",
-    tier: "extra"
-  },
-  {
-    id: "proa-ancianos",
-    title: "PROA – Voluntariados para Adulto Mayor",
-    description: "Listado de voluntariados orientados a causa de adulto mayor en PROA.",
-    url: "https://proa.pe/programas_de_ancianos",
-    mode: "Virtual",
-    interests: ["Voluntariado", "Adulto mayor", "Comunidad"],
-    location: "Perú",
-    provider: "PROA",
-    trust: "Plataforma",
     tier: "extra"
   }
 ];
