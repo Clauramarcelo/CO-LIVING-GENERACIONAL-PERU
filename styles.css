@@ -1,18 +1,15 @@
 :root{
-  /* Beige cálido */
   --bg:  #fbf4e8;
   --bg2: #f7efe0;
   --card: #ffffff;
 
-  /* Texto */
   --text: #2b2a26;
   --muted:#6b645a;
 
-  /* Acentos suaves */
-  --primary:  #c07a4a; /* terracota */
-  --primary2: #6aa6a6; /* verde-azulado */
-  --accent:   #22c55e; /* WhatsApp */
-  --warn:     #f59e0b; /* Llamar */
+  --primary:  #c07a4a;
+  --primary2: #6aa6a6;
+  --accent:   #22c55e;
+  --warn:     #f59e0b;
 
   --border: rgba(43,42,38,.12);
   --shadow: 0 10px 24px rgba(43,42,38,.10);
@@ -41,7 +38,8 @@ body{
 .container{ width:min(1100px, 92vw); margin:0 auto; }
 .main{ padding: 12px 0 28px; }
 
-/* Skip link */
+a{ color: inherit; }
+
 .skip-link{
   position:absolute;
   left:-999px;
@@ -51,6 +49,7 @@ body{
   padding: 10px 12px;
   border-radius: 12px;
   border:1px solid var(--border);
+  text-decoration:none;
 }
 .skip-link:focus{
   left:10px;
@@ -76,7 +75,7 @@ body{
   gap:12px;
 }
 
-/* Título “especial” sin logo */
+/* Título especial */
 .brand__title{
   margin:0;
   line-height:1;
@@ -104,7 +103,6 @@ body{
   width: fit-content;
 }
 
-/* subrayado suave tipo “firma” */
 .brand__titleSub::after{
   content:"";
   position:absolute;
@@ -121,6 +119,24 @@ body{
   color: var(--muted);
   font-size: 14px;
 }
+
+/* Font controls */
+.fontControls{
+  display:flex;
+  gap:8px;
+  align-items:center;
+}
+.iconBtn{
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.78);
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor:pointer;
+  font-size: 16px;
+  font-weight: 800;
+}
+.iconBtn:focus-visible{ outline:none; box-shadow: var(--focus); }
+.iconBtn:hover{ filter: brightness(1.03); }
 
 /* Tabs */
 .tabs{
@@ -153,7 +169,7 @@ body{
 .panel{ display:none; }
 .panel.is-active{ display:block; }
 
-/* Bienvenida compacta (no full screen) */
+/* Bienvenida */
 .welcome{
   position:relative;
   border-radius: var(--radius);
@@ -161,15 +177,13 @@ body{
   overflow:hidden;
   box-shadow: var(--shadow);
   margin: 10px 0 12px;
-
-  /* Imagen como fondo del banner (si no existe, igual queda bonito) */
   background: url("./image.png") center/cover no-repeat;
 }
 
 .welcome__overlay{
   position:absolute;
   inset:0;
-  background: rgba(251,241,225,0.78); /* filtro beige para legibilidad */
+  background: rgba(251,241,225,0.80);
 }
 
 .welcome__inner{
@@ -200,6 +214,7 @@ body{
   justify-self:end;
 }
 
+/* Buttons (para button y a) */
 .btn{
   border:1px solid var(--border);
   background: linear-gradient(135deg, rgba(192,122,74,.18), rgba(106,166,166,.16));
@@ -240,6 +255,28 @@ body{
 .btn--call{
   background: rgba(245,158,11,.16);
   border-color: rgba(245,158,11,.35);
+}
+
+/* Favoritos */
+.favorites{
+  margin: 12px 0 6px;
+  padding: 12px;
+  border-radius: var(--radius);
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.75);
+  box-shadow: var(--shadow);
+}
+.favorites__header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom: 10px;
+}
+.favorites__title{
+  margin:0;
+  font-size: 18px;
 }
 
 /* List header */
@@ -291,6 +328,12 @@ body{
   white-space:nowrap;
 }
 
+.badge--start{
+  background: rgba(192,122,74,.14);
+  border-color: rgba(192,122,74,.26);
+  font-weight: 800;
+}
+
 .card__desc{
   margin:0;
   color: var(--muted);
@@ -331,6 +374,28 @@ body{
 
 .small{ font-size: 13px; color: var(--muted); }
 
+/* Botón favorito */
+.favBtn{
+  border:1px solid var(--border);
+  background: rgba(255,255,255,.82);
+  padding: 10px 12px;
+  border-radius: 12px;
+  cursor:pointer;
+  font-size: 16px;
+  font-weight: 900;
+}
+.favBtn.is-on{
+  background: rgba(245, 158, 11, .16);
+  border-color: rgba(245, 158, 11, .28);
+}
+
+/* Más programas */
+.moreWrap{
+  display:flex;
+  justify-content:center;
+  margin: 14px 0 0;
+}
+
 /* Empty */
 .empty{
   margin: 14px 0;
@@ -359,14 +424,6 @@ body{
   border-radius: 12px;
 }
 
-.link{
-  color: #2b2a26;
-  font-weight: 800;
-  text-decoration: underline;
-  text-decoration-color: rgba(192,122,74,.35);
-  text-underline-offset: 3px;
-}
-
 /* Footer */
 .footer{
   border-top:1px solid var(--border);
@@ -392,4 +449,5 @@ body{
   .grid{ grid-template-columns: 1fr; }
   .tab{ flex:1; }
   .brand__subtitle{ display:none; }
+  .fontControls{ align-self:flex-start; }
 }
