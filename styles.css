@@ -26,13 +26,12 @@ body{
 
 .container{ width:min(1100px, 92vw); margin:0 auto; }
 .main{ padding: 12px 0 28px; }
+a{ color: inherit; }
 
 .skip-link{
   position:absolute; left:-999px; top:10px;
-  background: var(--card);
-  color: var(--text);
-  padding: 10px 12px;
-  border-radius: 12px;
+  background: var(--card); color: var(--text);
+  padding: 10px 12px; border-radius: 12px;
   border:1px solid var(--border);
   text-decoration:none;
 }
@@ -110,7 +109,7 @@ body{
 .panel{ display:none; }
 .panel.is-active{ display:block; }
 
-/* Banner seniors */
+/* Banner seniors (foto web) */
 .welcome{
   position:relative;
   border-radius: var(--radius);
@@ -132,7 +131,7 @@ body{
   gap:14px; padding: 14px; align-items:center;
 }
 .welcome__title{ margin:0 0 6px; font-size: 20px; }
-.welcome__desc{ margin: 0 0 8px; font-size: 15px; }
+.welcome__desc{ margin: 0 0 8px; font-size: 15px; color: var(--text); }
 .welcome__actions{ display:flex; flex-direction:column; gap:10px; justify-self:end; }
 
 .btn{
@@ -216,6 +215,7 @@ body{
   padding: 4px 8px;
   border-radius: 999px;
   background: rgba(255,255,255,.82);
+  white-space:nowrap;
 }
 .badge--start{ background: rgba(192,122,74,.14); border-color: rgba(192,122,74,.26); font-weight:800; }
 .badge--trust{ background: rgba(106,166,166,.14); border-color: rgba(106,166,166,.22); font-weight:800; }
@@ -251,7 +251,7 @@ body{
   background: rgba(192,122,74,.08);
 }
 
-/* Inscripción embed */
+/* Iframe del Form */
 .embedWrap{
   margin-top: 12px;
   border: 1px solid var(--border);
@@ -266,6 +266,33 @@ body{
   display:block;
 }
 
+/* Confirmación */
+.confirmBox{
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+.confirmMsg{
+  border: 1px solid rgba(34,197,94,.35);
+  background: rgba(34,197,94,.12);
+  border-radius: 12px;
+  padding: 12px 12px;
+  color: var(--text);
+}
+.confirmSub{
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Botones debajo del iframe */
+.formActions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top: 12px;
+}
+
 .callout{
   margin-top:12px;
   border-left: 4px solid rgba(192,122,74,.60);
@@ -278,6 +305,7 @@ body{
 .footer__inner{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
 .muted{ color: var(--muted); }
 
+/* Botón arriba */
 .topBtn{
   position: fixed; right: 14px; bottom: 14px; z-index: 30;
   border:1px solid var(--border);
