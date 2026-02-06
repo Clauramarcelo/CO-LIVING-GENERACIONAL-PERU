@@ -48,7 +48,7 @@ function makeTelLink(number){
   return `tel:${tel}`;
 }
 
-/* ===== ORDEN AUTOMÁTICO ===== */
+/* ===== Orden ===== */
 function sortPrograms(items){
   const collator = new Intl.Collator("es", { sensitivity: "base" });
   return [...items].sort((a, b) => {
@@ -118,29 +118,21 @@ function setupTabs(){
   });
 }
 
-/* ===== Botones de contacto ===== */
+/* ===== Contact buttons ===== */
 function contactButtons(item){
   const btns = [];
 
   if (item.whatsapp){
     const wa = makeWhatsAppLink(item.whatsapp, item.whatsappText);
     if (wa){
-      btns.push(`
-        <a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener">
-          💬 WhatsApp
-        </a>
-      `);
+      btns.push(`<a class="btn btn--whatsapp" href="${wa}" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>`);
     }
   }
 
   if (item.phone){
     const tel = makeTelLink(item.phone);
     if (tel){
-      btns.push(`
-        <a class="btn btn--call" href="${tel}">
-          📞 Llamar
-        </a>
-      `);
+      btns.push(`<a class="btn btn--call" href="${tel}">📞 Llamar</a>`);
     }
   }
 
@@ -189,12 +181,8 @@ function cardTemplate(item){
 
       <div class="card__actions">
         <div class="actionsLeft">
-          <a class="btn btn--ghost" href="${url}" target="_blank" rel="noopener">
-            Abrir enlace →
-          </a>
-
+          <a class="btn btn--ghost" href="${url}" target="_blank" rel="noopener noreferrer">Abrir enlace →</a>
           ${contactButtons(item)}
-
           <button class="${favClass}" type="button" data-fav="${escapeHTML(item.id)}" aria-label="${favLabel}">
             ${isFav ? "★" : "☆"}
           </button>
@@ -299,7 +287,6 @@ function scoreProgram(program, selected){
 
   let score = 0;
 
-  // Ayuda: prioriza lo más simple y confiable
   if (sel === "ayuda") {
     if (program.highlight) score += 8;
     if (trust.includes("oficial")) score += 3;
@@ -381,10 +368,7 @@ function setupTopButton(){
   const btn = $("#btnTop");
   if (!btn) return;
 
-  const onScroll = () => {
-    btn.hidden = !(window.scrollY > 380);
-  };
-
+  const onScroll = () => { btn.hidden = !(window.scrollY > 380); };
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
