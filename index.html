@@ -31,30 +31,15 @@
     </div>
 
     <nav class="tabs container" role="tablist" aria-label="Navegación principal">
-      <button class="tab is-active"
-              role="tab"
-              aria-selected="true"
-              aria-controls="panel-links"
-              id="tab-links"
-              type="button">
+      <button class="tab is-active" role="tab" aria-selected="true" aria-controls="panel-links" id="tab-links" type="button">
         Programas
       </button>
 
-      <button class="tab"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-signup"
-              id="tab-signup"
-              type="button">
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-signup" id="tab-signup" type="button">
         Inscripción
       </button>
 
-      <button class="tab"
-              role="tab"
-              aria-selected="false"
-              aria-controls="panel-about"
-              id="tab-about"
-              type="button">
+      <button class="tab" role="tab" aria-selected="false" aria-controls="panel-about" id="tab-about" type="button">
         Quiénes somos
       </button>
     </nav>
@@ -62,9 +47,12 @@
 
   <main id="main" class="container main" tabindex="-1">
 
-    <!-- PANEL 1: PROGRAMAS -->
+    <!-- ===================== -->
+    <!-- PANEL: PROGRAMAS -->
+    <!-- ===================== -->
     <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
 
+      <!-- Banner bienvenida -->
       <section class="welcome" aria-label="Bienvenida">
         <div class="welcome__overlay" aria-hidden="true"></div>
 
@@ -105,7 +93,7 @@
           <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Emprendimiento">Un paso hacia mi propio negocio</button>
           <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Voluntariado">Un paso para ayudar</button>
           <button class="btn btn--ghost btn--xl assistantBtn" type="button" data-interest="Bienestar">Un paso para sentirme acompañado/a</button>
-          <button class="btn btn--primary btn--xl assistantBtn" type="button" data-interest="Ayuda">No sé aún… muéstrame buenos primeros pasos</button>
+          <button class="btn btn--primary btn--xl assistantBtn" type="button" data-interest="Ayuda">No sé aún… muéstrame opciones simples</button>
         </div>
       </section>
 
@@ -167,52 +155,77 @@
       </section>
     </section>
 
-    <!-- PANEL 2: INSCRIPCIÓN (GOOGLE FORM + GOOGLE SHEET) -->
+    <!-- ===================== -->
+    <!-- PANEL: INSCRIPCIÓN -->
+    <!-- ===================== -->
     <section id="panel-signup" class="panel" role="tabpanel" aria-labelledby="tab-signup">
       <article class="about">
         <h2>Inscripción</h2>
         <p class="muted">
-          Completa la inscripción y se guardará automáticamente en nuestra lista (Google Sheets). 
-          Este formulario se crea en Google Forms y se vincula a Google Sheets. [1](https://sawebintercorp.blob.core.windows.net/pdfs/informe-Sostenibilidad-2022-ok.pdf)[2](https://bing.com/search?q=Intercorp+inclusi%c3%b3n+de+adultos+mayores+historias+de+impacto+sitio+intercorp.com.pe)
+          Completa la inscripción y se guardará automáticamente en nuestra lista (Google Sheets) mediante Google Forms. [1](https://sawebintercorp.blob.core.windows.net/pdfs/informe-Sostenibilidad-2022-ok.pdf)[2](https://bing.com/search?q=Intercorp+inclusi%c3%b3n+de+adultos+mayores+historias+de+impacto+sitio+intercorp.com.pe)
         </p>
 
         <div class="callout">
           <strong>Privacidad:</strong> no pedimos DNI, dirección ni contraseñas. Solo datos básicos para orientarte.
         </div>
 
-        <!-- 1) FORMULARIO EMBEBIDO -->
+        <!-- Form embebido -->
         <div class="embedWrap" aria-label="Formulario de inscripción">
           <iframe
             class="embedFrame"
-            src="PON_AQUI_TU_LINK_DE_GOOGLE_FORM_EMBED"
-            width="100%"
-            height="820"
-            frameborder="0"
-            marginheight="0"
-            marginwidth="0"
-            title="Formulario de inscripción">
+            src="https://docs.google.com/forms/d/e/1FAIpQLSdDq29HtVR4DFtz9byMMiHEPUw1QyHx343T3jOPzPGxVUEFEA/viewform?embedded=true"
+            height="900"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Formulario de inscripción CO-LIVING">
             Cargando…
           </iframe>
         </div>
 
-        <!-- 2) BOTONES: LISTA / WHATSAPP -->
+        <!-- Confirmación en la app -->
+        <div class="confirmBox" aria-label="Confirmación de inscripción">
+          <button id="btnConfirmSignup" class="btn btn--primary btn--xl" type="button">
+            ✅ Confirmar inscripción
+          </button>
+
+          <div id="confirmMsg" class="confirmMsg" hidden role="status" aria-live="polite">
+            <strong>¡Gracias!</strong> Si ya enviaste el formulario, tu inscripción quedó registrada.
+            <div class="confirmSub">
+              Puedes ver la lista o compartir el enlace por WhatsApp.
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones de lista + WhatsApp -->
         <div class="formActions">
-          <a id="sheetLinkBtn" class="btn btn--ghost btn--xl" href="PON_AQUI_TU_LINK_DE_GOOGLE_SHEET" target="_blank" rel="noopener">
-            Ver lista de inscritos
+          <a
+            id="sheetLinkBtn"
+            class="btn btn--ghost btn--xl"
+            href="https://docs.google.com/spreadsheets/d/1G41B6m1V0UVbkMSb7MLFVImaSTHMKi1ex-N9Xrt8c0s/edit?usp=sharing"
+            target="_blank"
+            rel="noopener">
+            📄 Ver lista de inscritos
           </a>
 
-          <a id="whatsShareBtn" class="btn btn--primary btn--xl" href="#" target="_blank" rel="noopener">
-            Enviar link por WhatsApp
+          <a
+            id="whatsShareBtn"
+            class="btn btn--ghost btn--xl"
+            href="#"
+            target="_blank"
+            rel="noopener">
+            📲 Enviar link por WhatsApp
           </a>
         </div>
 
         <p class="muted" style="margin-top:10px;">
-          Tip: este botón abre WhatsApp con el mensaje listo; luego lo reenvías a tu grupo.
+          El botón de WhatsApp abre un mensaje listo; luego lo reenvías a tu grupo. [4](https://pe.todosnegocios.com/essalud-cam-centro-del-adulto-mayor-01-4492497)[5](https://pe.near-place.com/essalud-cam-centro-del-adulto-mayor-calle-octavio-paz-calera-de-la-merced-276-surquillo-lima)
         </p>
       </article>
     </section>
 
-    <!-- PANEL 3: QUIÉNES SOMOS -->
+    <!-- ===================== -->
+    <!-- PANEL: QUIÉNES SOMOS -->
+    <!-- ===================== -->
     <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about">
       <article class="about">
         <h2>Quiénes somos</h2>
@@ -234,6 +247,7 @@
 
   </main>
 
+  <!-- Botón flotante arriba -->
   <button id="btnTop" class="topBtn" type="button" aria-label="Volver arriba" hidden>⬆ Arriba</button>
 
   <footer class="footer" role="contentinfo">
