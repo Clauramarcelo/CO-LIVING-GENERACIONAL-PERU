@@ -1,5 +1,5 @@
 window.LINKS_DATA = [
-  /* ===== CORE (se ven al inicio) ===== */
+  /* ===== CORE ===== */
   {
     id: "intercorp-golden-crew",
     title: "Intercorp – Inclusión de adultos mayores",
@@ -9,6 +9,7 @@ window.LINKS_DATA = [
     interests: ["Empleo", "Inclusión", "Adulto mayor"],
     location: "Perú",
     provider: "Intercorp",
+    trust: "Privado",
     tier: "core",
     highlight: true
   },
@@ -21,6 +22,7 @@ window.LINKS_DATA = [
     interests: ["Bienestar", "Comunidad", "Adulto mayor"],
     location: "Perú",
     provider: "EsSalud",
+    trust: "Oficial",
     tier: "core",
     highlight: true
   },
@@ -33,6 +35,7 @@ window.LINKS_DATA = [
     interests: ["Voluntariado", "Comunidad", "60+"],
     location: "Perú",
     provider: "Contraloría",
+    trust: "Oficial (GOB.PE)",
     tier: "core"
   },
   {
@@ -44,15 +47,12 @@ window.LINKS_DATA = [
     interests: ["Voluntariado", "Causas", "Comunidad"],
     location: "Perú",
     provider: "PROA",
+    trust: "Plataforma",
     tier: "core",
     whatsappText: "Hola, quiero información sobre oportunidades de voluntariado."
-    /* Para activar WhatsApp/Llamar agrega:
-       whatsapp: "51999999999",
-       phone: "+51 999 999 999"
-    */
   },
 
-  /* ===== EXTRA (aparecen con “Más programas”) ===== */
+  /* ===== EXTRA ===== */
   {
     id: "mimp-gratitud",
     title: "MIMP – Programa Nacional Gratitud",
@@ -61,7 +61,8 @@ window.LINKS_DATA = [
     mode: "Mixta",
     interests: ["Bienestar", "Protección", "Adulto mayor"],
     location: "Perú",
-    provider: "MIMP (GOB.PE)",
+    provider: "MIMP",
+    trust: "Oficial (GOB.PE)",
     tier: "extra"
   },
   {
@@ -72,7 +73,8 @@ window.LINKS_DATA = [
     mode: "Virtual",
     interests: ["Bienestar", "Servicios del Estado", "Apoyo social"],
     location: "Perú",
-    provider: "INABIF (GOB.PE)",
+    provider: "INABIF",
+    trust: "Oficial (GOB.PE)",
     tier: "extra"
   },
   {
@@ -81,20 +83,22 @@ window.LINKS_DATA = [
     description: "Jornada de oportunidades laborales formales para adultos mayores (nota oficial).",
     url: "https://www.gob.pe/institucion/mtpe/noticias/1234838-mtpe-realiza-maraton-del-empleo-plateada-con-mas-de-614-vacantes-para-adultos-mayores",
     mode: "Presencial",
-    interests: ["Empleo", "Orientación", "Reinserción laboral"],
+    interests: ["Empleo", "Orientación", "Reinserción laboral", "CV"],
     location: "Lima / Perú",
-    provider: "MTPE (GOB.PE)",
+    provider: "MTPE",
+    trust: "Oficial (GOB.PE)",
     tier: "extra"
   },
   {
     id: "eldespegue-creademy",
     title: "AFP Integra – Adultos Imparables: El Despegue",
-    description: "Programa gratuito para emprendimientos liderados por personas +55 (edición 2025).",
+    description: "Programa gratuito para emprendimientos liderados por personas +55.",
     url: "https://creademy.la/eldespegue/el-despegue-2025/",
     mode: "Virtual",
     interests: ["Emprendimiento", "Capacitación", "55+"],
     location: "Perú",
     provider: "AFP Integra / ChangeLab",
+    trust: "Privado",
     tier: "extra"
   },
   {
@@ -103,9 +107,10 @@ window.LINKS_DATA = [
     description: "Guía gratuita para emprender o potenciar un emprendimiento después de los 50.",
     url: "https://publications.iadb.org/es/guia-de-emprendimiento-senior-en-el-peru",
     mode: "Virtual",
-    interests: ["Emprendimiento", "Formación", "50+"],
+    interests: ["Emprendimiento", "Capacitación", "Formación", "50+"],
     location: "Perú",
     provider: "BID Lab / Emprende UP",
+    trust: "Organismo",
     tier: "extra"
   },
   {
@@ -114,31 +119,34 @@ window.LINKS_DATA = [
     description: "Voluntariado enfocado en acompañamiento y apoyo a personas mayores.",
     url: "https://www.expandperu.org/voluntariado-peru-ancianos/",
     mode: "Presencial",
-    interests: ["Voluntariado", "Comunidad", "Acompañamiento"],
+    interests: ["Voluntariado", "Comunidad", "Acompañamiento", "Bienestar"],
     location: "Huancayo / Perú",
     provider: "Expand Perú",
+    trust: "ONG",
     tier: "extra"
   },
   {
     id: "prima-voluntariado",
     title: "Prima AFP – Voluntariado para adultos mayores",
-    description: "Programa de voluntariado dirigido a adultos mayores en abandono y pobreza extrema.",
+    description: "Voluntariado dirigido a adultos mayores en abandono y pobreza extrema.",
     url: "https://www.prima.com.pe/public-zone/sobre-prima-afp/responsabilidad-social/voluntariado-de-prima-afp/",
     mode: "Presencial",
     interests: ["Voluntariado", "Comunidad", "Apoyo social"],
     location: "Perú",
     provider: "Prima AFP",
+    trust: "Privado",
     tier: "extra"
   },
   {
     id: "proa-ancianos",
     title: "PROA – Voluntariados para Adulto Mayor",
-    description: "Listado de voluntariados orientados a causa de adulto mayor en la plataforma PROA.",
+    description: "Listado de voluntariados orientados a causa de adulto mayor en PROA.",
     url: "https://proa.pe/programas_de_ancianos",
     mode: "Virtual",
     interests: ["Voluntariado", "Adulto mayor", "Comunidad"],
     location: "Perú",
     provider: "PROA",
+    trust: "Plataforma",
     tier: "extra"
   }
 ];
