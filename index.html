@@ -51,14 +51,22 @@
               type="button">
         Quiénes somos
       </button>
+
+      <button class="tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-signup"
+              id="tab-signup"
+              type="button">
+        Inscripción
+      </button>
     </nav>
   </header>
 
   <main id="main" class="container main" tabindex="-1">
+
     <!-- PANEL 1: PROGRAMAS -->
     <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
-
-      <!-- Bienvenida -->
       <section class="welcome" aria-label="Bienvenida">
         <div class="welcome__inner">
           <div class="welcome__text">
@@ -145,6 +153,72 @@
         </div>
       </article>
     </section>
+
+    <!-- PANEL 3: INSCRIPCIÓN -->
+    <section id="panel-signup" class="panel" role="tabpanel" aria-labelledby="tab-signup" hidden>
+      <article class="about">
+        <h2>Inscripción</h2>
+        <p class="muted">
+          Completa tus datos. Al enviar, se abrirá WhatsApp con el mensaje listo para enviarse.
+        </p>
+
+        <form id="signupForm" class="form" novalidate>
+          <div class="form__grid">
+            <div class="field">
+              <label for="fullName">Apellidos y nombres</label>
+              <input id="fullName" name="fullName" type="text" autocomplete="name"
+                     placeholder="Ej.: Pérez García, María" required minlength="5" />
+              <small class="help">Escribe tus apellidos y nombres completos.</small>
+            </div>
+
+            <div class="field">
+              <label for="age">Años (edad)</label>
+              <input id="age" name="age" type="number" inputmode="numeric"
+                     min="18" max="120" placeholder="Ej.: 65" required />
+              <small class="help">Solo números (18 a 120).</small>
+            </div>
+
+            <div class="field">
+              <label for="interest">Interés</label>
+              <select id="interest" name="interest" required>
+                <option value="" selected disabled>Selecciona una opción</option>
+                <option value="Comunidad">Comunidad</option>
+                <option value="Voluntariado">Voluntariado</option>
+                <option value="Bienestar">Bienestar</option>
+                <option value="Inclusión">Inclusión</option>
+                <option value="Oportunidades">Oportunidades</option>
+                <option value="Otro">Otro</option>
+              </select>
+              <small class="help">Esto nos ayuda a recomendarte programas.</small>
+            </div>
+
+            <div class="field">
+              <label for="phone">Nro de celular</label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel"
+                     placeholder="Ej.: +51 999 888 777" required />
+              <small class="help">Puedes escribir con +51 o solo el número.</small>
+            </div>
+          </div>
+
+          <div class="form__actions">
+            <button class="btn btn--primary btn--xl" type="submit">Enviar inscripción</button>
+            <button class="btn btn--ghost btn--xl" type="reset">Limpiar</button>
+          </div>
+
+          <div class="form__actions" style="margin-top:.6rem">
+            <button id="btnSendW1" class="btn btn--ghost btn--xl" type="button">Enviar a WhatsApp 1</button>
+            <button id="btnSendW2" class="btn btn--ghost btn--xl" type="button">Enviar a WhatsApp 2</button>
+          </div>
+
+          <p id="signupStatus" class="status" role="status" aria-live="polite"></p>
+        </form>
+
+        <div class="callout">
+          <strong>Tip:</strong> WhatsApp no envía automáticamente. Se abre el chat con el mensaje listo y solo debes presionar <em>Enviar</em>.
+        </div>
+      </article>
+    </section>
+
   </main>
 
   <footer class="footer" role="contentinfo">
@@ -154,7 +228,7 @@
     </div>
   </footer>
 
-  <!-- JS -->
+  <!-- Scripts (primero data, luego app) -->
   <script src="./data.js"></script>
   <script src="./app.js"></script>
 </body>
