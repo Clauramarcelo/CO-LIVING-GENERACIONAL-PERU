@@ -1,23 +1,14 @@
-/**
- * app.js
- * Tabs (3), render de cards, favoritos, botón “Más programas”, contador, año, control de fuente
- * y envío de inscripción a WhatsApp (2 números).
- */
-
 (() => {
   "use strict";
 
-  // ====== CONFIG WhatsApp (tus números) ======
-  const WHATSAPP_ADMINS = ["51937138457", "51956896092"]; // WhatsApp 1 y WhatsApp 2
+  // ✅ Tus números
+  const WHATSAPP_ADMINS = ["51937138457", "51956896092"];
 
-  // ====== Helpers ======
+  // Helpers
   const $ = (sel, root = document) => root.querySelector(sel);
   const safeText = (v) => (v == null ? "" : String(v));
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
-
-  function digitsOnly(str) {
-    return safeText(str).replace(/[^\d]/g, "");
-  }
+  const digitsOnly = (v) => safeText(v).replace(/[^\d]/g, "");
 
   function normalizePhone(phone) {
     return safeText(phone).trim().replace(/[^\d+]/g, "");
@@ -29,11 +20,12 @@
     return `https://wa.me/${n}?text=${text}`;
   }
 
-  // ====== State ======
+  // Data
   const ALL = Array.isArray(window.PROGRAMS) ? window.PROGRAMS : [];
   const PAGE_SIZE = 6;
   let shownCount = 0;
 
+  // Favorites
   const STORAGE_KEY = "coliving_favorites_v1";
   function loadFavs() {
     try {
@@ -49,14 +41,13 @@
   }
   const favs = loadFavs();
 
-  // ====== Elements ======
+  // Elements
   const yearEl = $("#year");
 
   // Tabs
   const tabLinks = $("#tab-links");
   const tabAbout = $("#tab-about");
   const tabSignup = $("#tab-signup");
-
   const panelLinks = $("#panel-links");
   const panelAbout = $("#panel-about");
   const panelSignup = $("#panel-signup");
@@ -85,11 +76,8 @@
   const signupStatus = $("#signupStatus");
   const btnSendW1 = $("#btnSendW1");
   const btnSendW2 = $("#btnSendW2");
-
-  // Guarda el último mensaje generado (para reenviar al 2do whatsapp)
   let lastSignupMsg = "";
 
-  // ====== Init ======
   function init() {
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -111,13 +99,12 @@
     setupSignup();
   }
 
-  // ====== Tabs ======
+  // Tabs
   function setTab(active) {
     const isPrograms = active === "programs";
     const isAbout = active === "about";
     const isSignup = active === "signup";
 
-    // tab states
     tabLinks?.classList.toggle("is-active", isPrograms);
     tabLinks?.setAttribute("aria-selected", String(isPrograms));
 
@@ -127,7 +114,6 @@
     tabSignup?.classList.toggle("is-active", isSignup);
     tabSignup?.setAttribute("aria-selected", String(isSignup));
 
-    // panels
     if (panelLinks) panelLinks.hidden = !isPrograms;
     if (panelAbout) panelAbout.hidden = !isAbout;
     if (panelSignup) panelSignup.hidden = !isSignup;
@@ -140,7 +126,6 @@
     tabAbout?.addEventListener("click", () => setTab("about"));
     tabSignup?.addEventListener("click", () => setTab("signup"));
 
-    // keyboard left/right
     const tabs = [tabLinks, tabAbout, tabSignup].filter(Boolean);
     tabs.forEach((t) => {
       t.addEventListener("keydown", (e) => {
@@ -156,7 +141,7 @@
     });
   }
 
-  // ====== Font size ======
+  // Font controls
   function setupFontControls() {
     const key = "coliving_font_size_v1";
     let size = 16;
@@ -185,17 +170,16 @@
     document.documentElement.style.setProperty("--fs", `${px}px`);
   }
 
-  // ====== Quick actions ======
+  // Quick actions
   function setupQuickActions() {
     btnFocusPrograms?.addEventListener("click", () => {
       setTab("programs");
       $("#programsTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
-
     btnOpenAbout?.addEventListener("click", () => setTab("about"));
   }
 
-  // ====== Programs render ======
+  // Programs render
   function renderInitialPrograms() {
     shownCount = 0;
     if (cardsEl) cardsEl.innerHTML = "";
@@ -223,12 +207,7 @@
     shownCount += take;
 
     updateCount();
-
     if (btnMorePrograms) btnMorePrograms.hidden = shownCount >= ALL.length;
-
-    if (!isFirst) {
-      // opcional: mantener vista estable
-    }
   }
 
   function updateCount() {
@@ -346,7 +325,7 @@
     return card;
   }
 
-  // ====== Favorites ======
+  // Favorites
   function renderFavorites() {
     if (!favoritesSection || !favoritesGrid) return;
 
@@ -362,7 +341,7 @@
     favList.forEach(p => favoritesGrid.appendChild(makeCard(p)));
   }
 
-  // ====== Signup → WhatsApp ======
+  // Signup -> WhatsApp
   function setStatus(message, type = "ok") {
     if (!signupStatus) return;
     signupStatus.textContent = message || "";
@@ -384,13 +363,11 @@
       const age = Number(ageRaw);
       const phone = normalizePhone(phoneRaw);
 
-      // Validaciones amigables
       if (fullName.length < 5) return setStatus("Por favor escribe Apellidos y nombres completos.", "bad");
       if (!Number.isFinite(age) || age < 18 || age > 120) return setStatus("Por favor ingresa una edad válida (18 a 120).", "bad");
       if (!interest) return setStatus("Selecciona un interés.", "bad");
       if (!phone || phone.replace(/\D/g, "").length < 8) return setStatus("Ingresa un número de celular válido.", "bad");
 
-      // Mensaje para WhatsApp
       lastSignupMsg =
 `📌 *Nueva inscripción - CO‑LIVING Generacional*
 👤 *Apellidos y nombres:* ${fullName}
@@ -400,17 +377,14 @@
 
 Enviado desde la web ✅`;
 
-      // Abrir WhatsApp 1 (más estable; evita bloqueos)
-      const url1 = buildWhatsAppLink(WHATSAPP_ADMINS[0], lastSignupMsg);
-      window.open(url1, "_blank", "noopener,noreferrer");
-
-      setStatus("Se abrió WhatsApp 1 con tu inscripción lista ✅ (usa los botones para abrir WhatsApp 2)", "ok");
+      // Abre WhatsApp 1 (más estable; evita bloqueos)
+      window.open(buildWhatsAppLink(WHATSAPP_ADMINS[0], lastSignupMsg), "_blank", "noopener,noreferrer");
+      setStatus("Se abrió WhatsApp 1 ✅. Usa los botones para abrir WhatsApp 2.", "ok");
       signupForm.reset();
     });
 
     signupForm.addEventListener("reset", () => setStatus("", "ok"));
 
-    // Botones manuales para enviar a W1 / W2 (evita bloqueos por pop-ups)
     btnSendW1?.addEventListener("click", () => {
       if (!lastSignupMsg) return setStatus("Primero completa y envía una inscripción para generar el mensaje.", "bad");
       window.open(buildWhatsAppLink(WHATSAPP_ADMINS[0], lastSignupMsg), "_blank", "noopener,noreferrer");
@@ -424,6 +398,5 @@ Enviado desde la web ✅`;
     });
   }
 
-  // ====== Run ======
   document.addEventListener("DOMContentLoaded", init);
 })();
