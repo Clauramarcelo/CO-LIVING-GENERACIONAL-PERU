@@ -1,23 +1,40 @@
 /**
  * app.js
- * Tabs, render de cards, favoritos, botón “Más programas”, contador, año y control de fuente.
+ * Tabs (3), render de cards, favoritos, botón “Más programas”, contador, año, control de fuente
+ * y envío de inscripción a WhatsApp (2 números).
  */
 
 (() => {
   "use strict";
 
-  const $ = (sel, root = document) => root.querySelector(sel);
+  // ====== CONFIG WhatsApp (tus números) ======
+  const WHATSAPP_ADMINS = ["51937138457", "51956896092"]; // WhatsApp 1 y WhatsApp 2
 
+  // ====== Helpers ======
+  const $ = (sel, root = document) => root.querySelector(sel);
   const safeText = (v) => (v == null ? "" : String(v));
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-  // Estado
+  function digitsOnly(str) {
+    return safeText(str).replace(/[^\d]/g, "");
+  }
+
+  function normalizePhone(phone) {
+    return safeText(phone).trim().replace(/[^\d+]/g, "");
+  }
+
+  function buildWhatsAppLink(number, message) {
+    const n = digitsOnly(number);
+    const text = encodeURIComponent(message || "");
+    return `https://wa.me/${n}?text=${text}`;
+  }
+
+  // ====== State ======
   const ALL = Array.isArray(window.PROGRAMS) ? window.PROGRAMS : [];
   const PAGE_SIZE = 6;
   let shownCount = 0;
 
   const STORAGE_KEY = "coliving_favorites_v1";
-
   function loadFavs() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -27,36 +44,52 @@
       return new Set();
     }
   }
-
   function saveFavs(set) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(set)));
   }
-
   const favs = loadFavs();
 
-  // Elementos
+  // ====== Elements ======
   const yearEl = $("#year");
 
+  // Tabs
   const tabLinks = $("#tab-links");
   const tabAbout = $("#tab-about");
+  const tabSignup = $("#tab-signup");
+
   const panelLinks = $("#panel-links");
   const panelAbout = $("#panel-about");
+  const panelSignup = $("#panel-signup");
 
+  // Programs
   const cardsEl = $("#cards");
   const resultsCountEl = $("#resultsCount");
   const btnMorePrograms = $("#btnMorePrograms");
   const emptyState = $("#emptyState");
 
+  // Favorites
   const favoritesSection = $("#favoritesSection");
   const favoritesGrid = $("#favoritesGrid");
   const btnClearFavs = $("#btnClearFavs");
 
+  // Quick actions
   const btnFocusPrograms = $("#btnFocusPrograms");
   const btnOpenAbout = $("#btnOpenAbout");
 
+  // Font controls
   const btnFontDown = $("#btnFontDown");
   const btnFontUp = $("#btnFontUp");
 
+  // Signup
+  const signupForm = $("#signupForm");
+  const signupStatus = $("#signupStatus");
+  const btnSendW1 = $("#btnSendW1");
+  const btnSendW2 = $("#btnSendW2");
+
+  // Guarda el último mensaje generado (para reenviar al 2do whatsapp)
+  let lastSignupMsg = "";
+
+  // ====== Init ======
   function init() {
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -64,34 +97,40 @@
     setupFontControls();
     setupQuickActions();
 
-    renderInitial();
+    renderInitialPrograms();
     renderFavorites();
 
-    btnMorePrograms?.addEventListener("click", () => renderNextPage(false));
-
+    btnMorePrograms?.addEventListener("click", () => renderNextPage());
     btnClearFavs?.addEventListener("click", () => {
       favs.clear();
       saveFavs(favs);
       renderFavorites();
-      rerenderCards();
+      rerenderCardsKeepingCount();
     });
+
+    setupSignup();
   }
 
-  // Tabs
+  // ====== Tabs ======
   function setTab(active) {
     const isPrograms = active === "programs";
+    const isAbout = active === "about";
+    const isSignup = active === "signup";
 
-    tabLinks.classList.toggle("is-active", isPrograms);
-    tabLinks.setAttribute("aria-selected", String(isPrograms));
+    // tab states
+    tabLinks?.classList.toggle("is-active", isPrograms);
+    tabLinks?.setAttribute("aria-selected", String(isPrograms));
 
-    tabAbout.classList.toggle("is-active", !isPrograms);
-    tabAbout.setAttribute("aria-selected", String(!isPrograms));
+    tabAbout?.classList.toggle("is-active", isAbout);
+    tabAbout?.setAttribute("aria-selected", String(isAbout));
 
-    panelLinks.hidden = !isPrograms;
-    panelLinks.classList.toggle("is-active", isPrograms);
+    tabSignup?.classList.toggle("is-active", isSignup);
+    tabSignup?.setAttribute("aria-selected", String(isSignup));
 
-    panelAbout.hidden = isPrograms;
-    panelAbout.classList.toggle("is-active", !isPrograms);
+    // panels
+    if (panelLinks) panelLinks.hidden = !isPrograms;
+    if (panelAbout) panelAbout.hidden = !isAbout;
+    if (panelSignup) panelSignup.hidden = !isSignup;
 
     $("#main")?.focus({ preventScroll: false });
   }
@@ -99,25 +138,25 @@
   function setupTabs() {
     tabLinks?.addEventListener("click", () => setTab("programs"));
     tabAbout?.addEventListener("click", () => setTab("about"));
+    tabSignup?.addEventListener("click", () => setTab("signup"));
 
-    const tabs = [tabLinks, tabAbout].filter(Boolean);
+    // keyboard left/right
+    const tabs = [tabLinks, tabAbout, tabSignup].filter(Boolean);
     tabs.forEach((t) => {
       t.addEventListener("keydown", (e) => {
         if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
         e.preventDefault();
-
         const idx = tabs.indexOf(t);
         const next = e.key === "ArrowRight"
           ? tabs[(idx + 1) % tabs.length]
           : tabs[(idx - 1 + tabs.length) % tabs.length];
-
         next.focus();
         next.click();
       });
     });
   }
 
-  // Fuente
+  // ====== Font size ======
   function setupFontControls() {
     const key = "coliving_font_size_v1";
     let size = 16;
@@ -146,7 +185,7 @@
     document.documentElement.style.setProperty("--fs", `${px}px`);
   }
 
-  // Acciones rápidas
+  // ====== Quick actions ======
   function setupQuickActions() {
     btnFocusPrograms?.addEventListener("click", () => {
       setTab("programs");
@@ -156,43 +195,52 @@
     btnOpenAbout?.addEventListener("click", () => setTab("about"));
   }
 
-  // Render
-  function renderInitial() {
+  // ====== Programs render ======
+  function renderInitialPrograms() {
     shownCount = 0;
-    cardsEl.innerHTML = "";
+    if (cardsEl) cardsEl.innerHTML = "";
 
     if (!ALL.length) {
-      resultsCountEl.textContent = "No hay programas cargados.";
-      emptyState.hidden = false;
-      btnMorePrograms.hidden = true;
+      if (resultsCountEl) resultsCountEl.textContent = "No hay programas cargados.";
+      if (emptyState) emptyState.hidden = false;
+      if (btnMorePrograms) btnMorePrograms.hidden = true;
       return;
     }
 
-    emptyState.hidden = true;
-    btnMorePrograms.hidden = false;
+    if (emptyState) emptyState.hidden = true;
+    if (btnMorePrograms) btnMorePrograms.hidden = false;
+
     renderNextPage(true);
+    updateCount();
   }
 
-  function renderNextPage(isFirst) {
+  function renderNextPage(isFirst = false) {
     const remaining = ALL.length - shownCount;
     const take = Math.min(PAGE_SIZE, remaining);
     const slice = ALL.slice(shownCount, shownCount + take);
 
-    slice.forEach(p => cardsEl.appendChild(makeCard(p)));
+    slice.forEach(p => cardsEl?.appendChild(makeCard(p)));
     shownCount += take;
 
     updateCount();
-    btnMorePrograms.hidden = shownCount >= ALL.length;
+
+    if (btnMorePrograms) btnMorePrograms.hidden = shownCount >= ALL.length;
+
+    if (!isFirst) {
+      // opcional: mantener vista estable
+    }
   }
 
   function updateCount() {
     const total = ALL.length;
     const shown = Math.min(shownCount, total);
-    resultsCountEl.textContent = `${shown} de ${total} programas mostrados`;
+    if (resultsCountEl) resultsCountEl.textContent = `${shown} de ${total} programas mostrados`;
   }
 
-  function rerenderCards() {
+  function rerenderCardsKeepingCount() {
     const keep = shownCount;
+    if (!cardsEl) return;
+
     cardsEl.innerHTML = "";
     shownCount = 0;
 
@@ -200,7 +248,7 @@
     shownCount = keep;
 
     updateCount();
-    btnMorePrograms.hidden = shownCount >= ALL.length;
+    if (btnMorePrograms) btnMorePrograms.hidden = shownCount >= ALL.length;
   }
 
   function makeCard(program) {
@@ -215,7 +263,7 @@
 
     const card = document.createElement("article");
     card.className = "card";
-    card.setAttribute("data-id", id);
+    card.dataset.id = id;
 
     const top = document.createElement("div");
     top.className = "card__top";
@@ -284,10 +332,9 @@
       if (!id) return;
       if (favs.has(id)) favs.delete(id);
       else favs.add(id);
-
       saveFavs(favs);
       renderFavorites();
-      rerenderCards();
+      rerenderCardsKeepingCount();
     });
 
     actions.appendChild(favBtn);
@@ -299,7 +346,7 @@
     return card;
   }
 
-  // Favoritos
+  // ====== Favorites ======
   function renderFavorites() {
     if (!favoritesSection || !favoritesGrid) return;
 
@@ -315,5 +362,68 @@
     favList.forEach(p => favoritesGrid.appendChild(makeCard(p)));
   }
 
+  // ====== Signup → WhatsApp ======
+  function setStatus(message, type = "ok") {
+    if (!signupStatus) return;
+    signupStatus.textContent = message || "";
+    signupStatus.classList.remove("is-ok", "is-bad");
+    signupStatus.classList.add(type === "ok" ? "is-ok" : "is-bad");
+  }
+
+  function setupSignup() {
+    if (!signupForm) return;
+
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const fullName = $("#fullName")?.value?.trim() || "";
+      const ageRaw = $("#age")?.value || "";
+      const interest = $("#interest")?.value || "";
+      const phoneRaw = $("#phone")?.value || "";
+
+      const age = Number(ageRaw);
+      const phone = normalizePhone(phoneRaw);
+
+      // Validaciones amigables
+      if (fullName.length < 5) return setStatus("Por favor escribe Apellidos y nombres completos.", "bad");
+      if (!Number.isFinite(age) || age < 18 || age > 120) return setStatus("Por favor ingresa una edad válida (18 a 120).", "bad");
+      if (!interest) return setStatus("Selecciona un interés.", "bad");
+      if (!phone || phone.replace(/\D/g, "").length < 8) return setStatus("Ingresa un número de celular válido.", "bad");
+
+      // Mensaje para WhatsApp
+      lastSignupMsg =
+`📌 *Nueva inscripción - CO‑LIVING Generacional*
+👤 *Apellidos y nombres:* ${fullName}
+🎂 *Años:* ${age}
+⭐ *Interés:* ${interest}
+📱 *Celular:* ${phone}
+
+Enviado desde la web ✅`;
+
+      // Abrir WhatsApp 1 (más estable; evita bloqueos)
+      const url1 = buildWhatsAppLink(WHATSAPP_ADMINS[0], lastSignupMsg);
+      window.open(url1, "_blank", "noopener,noreferrer");
+
+      setStatus("Se abrió WhatsApp 1 con tu inscripción lista ✅ (usa los botones para abrir WhatsApp 2)", "ok");
+      signupForm.reset();
+    });
+
+    signupForm.addEventListener("reset", () => setStatus("", "ok"));
+
+    // Botones manuales para enviar a W1 / W2 (evita bloqueos por pop-ups)
+    btnSendW1?.addEventListener("click", () => {
+      if (!lastSignupMsg) return setStatus("Primero completa y envía una inscripción para generar el mensaje.", "bad");
+      window.open(buildWhatsAppLink(WHATSAPP_ADMINS[0], lastSignupMsg), "_blank", "noopener,noreferrer");
+      setStatus("WhatsApp 1 abierto ✅", "ok");
+    });
+
+    btnSendW2?.addEventListener("click", () => {
+      if (!lastSignupMsg) return setStatus("Primero completa y envía una inscripción para generar el mensaje.", "bad");
+      window.open(buildWhatsAppLink(WHATSAPP_ADMINS[1], lastSignupMsg), "_blank", "noopener,noreferrer");
+      setStatus("WhatsApp 2 abierto ✅", "ok");
+    });
+  }
+
+  // ====== Run ======
   document.addEventListener("DOMContentLoaded", init);
 })();
