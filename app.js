@@ -1,40 +1,23 @@
 /**
  * app.js
- * Lógica principal: tabs, render de tarjetas, favoritos, paginación simple, accesibilidad y tamaño de letra.
+ * Tabs, render de cards, favoritos, botón “Más programas”, contador, año y control de fuente.
  */
 
 (() => {
   "use strict";
 
-  // =========================
-  // Helpers
-  // =========================
   const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const safeText = (v) => (v == null ? "" : String(v));
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-  function onlyDigits(str) {
-    return safeText(str).replace(/[^\d]/g, "");
-  }
-
-  function waLink(number, text = "") {
-    const n = onlyDigits(number);
-    if (!n) return "";
-    const msg = encodeURIComponent(text);
-    return `https://wa.me/${n}${text ? `?text=${msg}` : ""}`;
-  }
-
-  // =========================
-  // State
-  // =========================
+  // Estado
   const ALL = Array.isArray(window.PROGRAMS) ? window.PROGRAMS : [];
   const PAGE_SIZE = 6;
-
   let shownCount = 0;
 
   const STORAGE_KEY = "coliving_favorites_v1";
+
   function loadFavs() {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -44,15 +27,14 @@
       return new Set();
     }
   }
+
   function saveFavs(set) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(Array.from(set)));
   }
 
   const favs = loadFavs();
 
-  // =========================
-  // Elements
-  // =========================
+  // Elementos
   const yearEl = $("#year");
 
   const tabLinks = $("#tab-links");
@@ -75,43 +57,27 @@
   const btnFontDown = $("#btnFontDown");
   const btnFontUp = $("#btnFontUp");
 
-  // =========================
-  // Init
-  // =========================
   function init() {
-    // Año
     if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // Tabs
     setupTabs();
-
-    // Fuente
     setupFontControls();
-
-    // Botones rápidos
     setupQuickActions();
 
-    // Render inicial
     renderInitial();
     renderFavorites();
 
-    // Botón más
-    btnMorePrograms?.addEventListener("click", () => {
-      renderNextPage();
-    });
+    btnMorePrograms?.addEventListener("click", () => renderNextPage(false));
 
-    // Clear favs
     btnClearFavs?.addEventListener("click", () => {
       favs.clear();
       saveFavs(favs);
       renderFavorites();
-      rerenderCards(); // actualiza estrellas
+      rerenderCards();
     });
   }
 
-  // =========================
-  // Tabs (accesible)
-  // =========================
+  // Tabs
   function setTab(active) {
     const isPrograms = active === "programs";
 
@@ -121,23 +87,19 @@
     tabAbout.classList.toggle("is-active", !isPrograms);
     tabAbout.setAttribute("aria-selected", String(!isPrograms));
 
-    // Panels
     panelLinks.hidden = !isPrograms;
     panelLinks.classList.toggle("is-active", isPrograms);
 
     panelAbout.hidden = isPrograms;
     panelAbout.classList.toggle("is-active", !isPrograms);
 
-    // Mover foco al main para accesibilidad
-    const main = $("#main");
-    main?.focus({ preventScroll: false });
+    $("#main")?.focus({ preventScroll: false });
   }
 
   function setupTabs() {
     tabLinks?.addEventListener("click", () => setTab("programs"));
     tabAbout?.addEventListener("click", () => setTab("about"));
 
-    // Navegación con teclado (izq/der)
     const tabs = [tabLinks, tabAbout].filter(Boolean);
     tabs.forEach((t) => {
       t.addEventListener("keydown", (e) => {
@@ -155,11 +117,8 @@
     });
   }
 
-  // =========================
-  // Font controls
-  // =========================
+  // Fuente
   function setupFontControls() {
-    // Leer valor guardado
     const key = "coliving_font_size_v1";
     let size = 16;
 
@@ -187,28 +146,21 @@
     document.documentElement.style.setProperty("--fs", `${px}px`);
   }
 
-  // =========================
-  // Quick actions
-  // =========================
+  // Acciones rápidas
   function setupQuickActions() {
     btnFocusPrograms?.addEventListener("click", () => {
       setTab("programs");
-      // Desplazar a la sección de programas
       $("#programsTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
 
-    btnOpenAbout?.addEventListener("click", () => {
-      setTab("about");
-    });
+    btnOpenAbout?.addEventListener("click", () => setTab("about"));
   }
 
-  // =========================
-  // Rendering
-  // =========================
+  // Render
   function renderInitial() {
     shownCount = 0;
-
     cardsEl.innerHTML = "";
+
     if (!ALL.length) {
       resultsCountEl.textContent = "No hay programas cargados.";
       emptyState.hidden = false;
@@ -218,11 +170,10 @@
 
     emptyState.hidden = true;
     btnMorePrograms.hidden = false;
-
     renderNextPage(true);
   }
 
-  function renderNextPage(isFirst = false) {
+  function renderNextPage(isFirst) {
     const remaining = ALL.length - shownCount;
     const take = Math.min(PAGE_SIZE, remaining);
     const slice = ALL.slice(shownCount, shownCount + take);
@@ -231,36 +182,21 @@
     shownCount += take;
 
     updateCount();
-
-    // Si ya no hay más, ocultar el botón
-    if (shownCount >= ALL.length) {
-      btnMorePrograms.hidden = true;
-    } else {
-      btnMorePrograms.hidden = false;
-    }
-
-    // Mejor UX: en la primera carga, mantener al usuario arriba
-    if (!isFirst) {
-      // pequeño scroll para mostrar que cargó más (opcional)
-      // btnMorePrograms.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
+    btnMorePrograms.hidden = shownCount >= ALL.length;
   }
 
   function updateCount() {
     const total = ALL.length;
     const shown = Math.min(shownCount, total);
-
     resultsCountEl.textContent = `${shown} de ${total} programas mostrados`;
   }
 
   function rerenderCards() {
-    // Re-render conservando cantidad mostrada
     const keep = shownCount;
     cardsEl.innerHTML = "";
     shownCount = 0;
 
-    const toShow = ALL.slice(0, keep);
-    toShow.forEach(p => cardsEl.appendChild(makeCard(p)));
+    ALL.slice(0, keep).forEach(p => cardsEl.appendChild(makeCard(p)));
     shownCount = keep;
 
     updateCount();
@@ -270,44 +206,37 @@
   function makeCard(program) {
     const p = program || {};
     const id = safeText(p.id);
-    const title = safeText(p.title);
-    const desc = safeText(p.description);
+    const title = safeText(p.title) || "Sin título";
+    const desc = safeText(p.description) || "Sin descripción.";
     const category = safeText(p.category || "Programa");
     const url = safeText(p.url);
     const location = safeText(p.location);
     const tags = Array.isArray(p.tags) ? p.tags : [];
 
-    const phone = onlyDigits(p.phone);
-    const whatsapp = onlyDigits(p.whatsapp);
-
     const card = document.createElement("article");
     card.className = "card";
     card.setAttribute("data-id", id);
 
-    // Top
     const top = document.createElement("div");
     top.className = "card__top";
 
-    const titleWrap = document.createElement("div");
     const h = document.createElement("h4");
     h.className = "card__title";
-    h.textContent = title || "Sin título";
+    h.textContent = title;
 
     const badge = document.createElement("span");
     badge.className = "badge";
-    badge.textContent = category || "Programa";
+    badge.textContent = category;
 
-    titleWrap.appendChild(h);
-    top.appendChild(titleWrap);
+    top.appendChild(h);
     top.appendChild(badge);
 
-    // Body
     const body = document.createElement("div");
     body.className = "card__body";
 
     const pDesc = document.createElement("p");
     pDesc.className = "card__desc";
-    pDesc.textContent = desc || "Sin descripción.";
+    pDesc.textContent = desc;
 
     const meta = document.createElement("div");
     meta.className = "card__meta";
@@ -329,7 +258,6 @@
     body.appendChild(pDesc);
     if (meta.childNodes.length) body.appendChild(meta);
 
-    // Actions
     const actions = document.createElement("div");
     actions.className = "card__actions";
 
@@ -343,35 +271,17 @@
       actions.appendChild(aOpen);
     }
 
-    if (whatsapp) {
-      const aWa = document.createElement("a");
-      aWa.className = "actionLink";
-      aWa.href = waLink(whatsapp, `Hola, quisiera información sobre: ${title}`);
-      aWa.target = "_blank";
-      aWa.rel = "noopener noreferrer";
-      aWa.textContent = "WhatsApp";
-      actions.appendChild(aWa);
-    }
-
-    if (phone) {
-      const aTel = document.createElement("a");
-      aTel.className = "actionLink";
-      aTel.href = `tel:${phone}`;
-      aTel.textContent = "Llamar";
-      actions.appendChild(aTel);
-    }
-
-    // Favorito
     const favBtn = document.createElement("button");
     favBtn.className = "starBtn";
     favBtn.type = "button";
     favBtn.setAttribute("aria-label", "Guardar en favoritos");
-    favBtn.textContent = favs.has(id) ? "★" : "☆";
-    favBtn.classList.toggle("is-on", favs.has(id));
+
+    const isOn = favs.has(id);
+    favBtn.textContent = isOn ? "★" : "☆";
+    favBtn.classList.toggle("is-on", isOn);
 
     favBtn.addEventListener("click", () => {
       if (!id) return;
-
       if (favs.has(id)) favs.delete(id);
       else favs.add(id);
 
@@ -382,7 +292,6 @@
 
     actions.appendChild(favBtn);
 
-    // Ensamblar
     card.appendChild(top);
     card.appendChild(body);
     card.appendChild(actions);
@@ -390,14 +299,11 @@
     return card;
   }
 
-  // =========================
-  // Favorites
-  // =========================
+  // Favoritos
   function renderFavorites() {
     if (!favoritesSection || !favoritesGrid) return;
 
     favoritesGrid.innerHTML = "";
-
     const favList = ALL.filter(p => favs.has(String(p.id)));
 
     if (!favList.length) {
@@ -406,15 +312,8 @@
     }
 
     favoritesSection.hidden = false;
-
-    favList.forEach(p => {
-      const card = makeCard(p);
-      favoritesGrid.appendChild(card);
-    });
+    favList.forEach(p => favoritesGrid.appendChild(makeCard(p)));
   }
 
-  // =========================
-  // Run
-  // =========================
   document.addEventListener("DOMContentLoaded", init);
 })();
