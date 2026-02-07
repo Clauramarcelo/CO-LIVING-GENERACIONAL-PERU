@@ -6,11 +6,13 @@
   <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
   <title>CO‑LIVING Generacional</title>
 
-  styles.css
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  #mainSaltar al contenido</a>
+  <!-- Link de accesibilidad -->
+  <a class="skipLink" href="#main">Saltar al contenido</a>
 
   <header class="header" role="banner">
     <div class="container header__inner">
@@ -57,7 +59,7 @@
     <!-- PANEL 1: PROGRAMAS -->
     <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
 
-      <!-- Bienvenida compacta (sin obligar scroll) -->
+      <!-- Bienvenida -->
       <section class="welcome" aria-label="Bienvenida">
         <div class="welcome__overlay" aria-hidden="true"></div>
 
@@ -111,6 +113,7 @@
         </button>
       </div>
 
+      <!-- Estado vacío -->
       <section id="emptyState" class="empty" hidden aria-label="Sin enlaces">
         <h3>No hay enlaces aún</h3>
         <p>Agrega más programas en el archivo <strong>data.js</strong>.</p>
@@ -118,7 +121,7 @@
     </section>
 
     <!-- PANEL 2: QUIÉNES SOMOS -->
-    <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about">
+    <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about" hidden>
       <article class="about">
         <h2>Quiénes somos</h2>
         <p>
@@ -145,14 +148,16 @@
         <p>
           ¿Quieres sugerir una institución o mejorar la app?
           <br />
-          mailto:contacto@colivinggeneracional.pecontacto@colivinggeneracional.pe</a>
+          <a href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
         </p>
 
         <div class="callout">
-          <strong>Nota:</strong> esta app no reemplaza asesoría psicológica, médica o legal. Es una guía para facilitar el acceso a recursos.
+          <strong>Nota:</strong> esta app no reemplaza asesoría psicológica, médica o legal.
+          Es una guía para facilitar el acceso a recursos.
         </div>
       </article>
     </section>
+
   </main>
 
   <footer class="footer" role="contentinfo">
@@ -162,7 +167,8 @@
     </div>
   </footer>
 
-  data.js</script>
-  app.js</script>
+  <!-- Scripts (primero data, luego app) -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
