@@ -1,8 +1,3 @@
-/**
- * data.js
- * Programas para cards.
- */
-
 window.PROGRAMS = [
   {
     id: "p01",
@@ -10,8 +5,6 @@ window.PROGRAMS = [
     description: "Historia e iniciativas de impacto sostenible orientadas a la inclusión de adultos mayores.",
     category: "Inclusión",
     url: "https://www.intercorp.com.pe/es/nuestro-impacto-sostenible/historias-de-impacto/inclusion-de-adultos-mayores",
-    whatsapp: "",
-    phone: "",
     location: "Perú",
     tags: ["inclusión", "adulto mayor", "impacto"]
   },
@@ -21,8 +14,6 @@ window.PROGRAMS = [
     description: "Información y recursos del Observatorio de Poblaciones Vulnerables sobre el CAM para adultos mayores.",
     category: "Bienestar",
     url: "https://www.essalud.gob.pe/transparencia/observatorio_de_poblaciones_vulnerables/cam.html",
-    whatsapp: "",
-    phone: "",
     location: "Nacional",
     tags: ["salud", "bienestar", "CAM"]
   },
@@ -32,8 +23,6 @@ window.PROGRAMS = [
     description: "Programa de participación ciudadana para apoyar en control social y transparencia.",
     category: "Voluntariado",
     url: "https://controlsocial.contraloria.gob.pe/mentoresdecontrolsocial/index.html",
-    whatsapp: "",
-    phone: "",
     location: "Perú",
     tags: ["voluntariado", "control social", "ciudadanía"]
   },
@@ -43,8 +32,6 @@ window.PROGRAMS = [
     description: "Plataforma que conecta a personas que desean hacer voluntariado con organizaciones solidarias.",
     category: "Voluntariado",
     url: "https://proa.pe/",
-    whatsapp: "",
-    phone: "",
     location: "Perú",
     tags: ["voluntariado", "organizaciones", "solidaridad"]
   }
