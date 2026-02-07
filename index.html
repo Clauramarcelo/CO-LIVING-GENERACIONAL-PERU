@@ -6,12 +6,12 @@
   <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
   <title>CO‑LIVING Generacional</title>
 
-  <!-- Estilos -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
-  <!-- Link de accesibilidad -->
+  <!-- Accesibilidad: saltar al contenido -->
   <a class="skipLink" href="#main">Saltar al contenido</a>
 
   <header class="header" role="banner">
@@ -55,14 +55,11 @@
   </header>
 
   <main id="main" class="container main" tabindex="-1">
-
     <!-- PANEL 1: PROGRAMAS -->
     <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
 
       <!-- Bienvenida -->
       <section class="welcome" aria-label="Bienvenida">
-        <div class="welcome__overlay" aria-hidden="true"></div>
-
         <div class="welcome__inner">
           <div class="welcome__text">
             <h2 class="welcome__title">Bienvenido/a</h2>
@@ -80,12 +77,8 @@
           </div>
 
           <div class="welcome__actions" aria-label="Acciones rápidas">
-            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">
-              Ver programas
-            </button>
-            <button class="btn btn--ghost btn--xl" type="button" id="btnOpenAbout">
-              Quiénes somos
-            </button>
+            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">Ver programas</button>
+            <button class="btn btn--ghost btn--xl" type="button" id="btnOpenAbout">Quiénes somos</button>
           </div>
         </div>
       </section>
@@ -106,14 +99,10 @@
 
       <section id="cards" class="grid" aria-label="Listado de programas"></section>
 
-      <!-- Botón MÁS PROGRAMAS -->
       <div class="moreWrap" aria-label="Más programas">
-        <button id="btnMorePrograms" class="btn btn--ghost btn--xl" type="button">
-          Más programas
-        </button>
+        <button id="btnMorePrograms" class="btn btn--ghost btn--xl" type="button">Más programas</button>
       </div>
 
-      <!-- Estado vacío -->
       <section id="emptyState" class="empty" hidden aria-label="Sin enlaces">
         <h3>No hay enlaces aún</h3>
         <p>Agrega más programas en el archivo <strong>data.js</strong>.</p>
@@ -140,7 +129,6 @@
         <ol>
           <li>Revisa las tarjetas (cards) en “Programas”.</li>
           <li>Abre el enlace del programa que te interese.</li>
-          <li>Si hay contacto, usa “WhatsApp” o “Llamar”.</li>
           <li>Si te gusta un programa, guárdalo en ⭐ Favoritos.</li>
         </ol>
 
@@ -157,7 +145,6 @@
         </div>
       </article>
     </section>
-
   </main>
 
   <footer class="footer" role="contentinfo">
@@ -167,8 +154,8 @@
     </div>
   </footer>
 
-  <!-- Scripts (primero data, luego app) -->
-  <script src="data.js"></script>
-  <script src="app.js"></script>
+  <!-- JS -->
+  <script src="./data.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
