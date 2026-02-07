@@ -6,12 +6,12 @@
   <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
   <title>CO‑LIVING Generacional</title>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="./styles.css" />
+  <!-- ✅ CSS correcto (ESTO hace que se vea en el celular) -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
-  <!-- Accesibilidad: saltar al contenido -->
+  <!-- ✅ Accesibilidad: saltar al contenido -->
   <a class="skipLink" href="#main">Saltar al contenido</a>
 
   <header class="header" role="banner">
@@ -228,8 +228,8 @@
     </div>
   </footer>
 
-  <!-- Scripts (primero data, luego app) -->
-  <script src="./data.js"></script>
-  <script src="./app.js"></script>
+  <!-- ✅ Scripts correctos (con defer para que cargue bien en móvil) -->
+  <script src="data.js" defer></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
