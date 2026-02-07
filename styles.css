@@ -1,5 +1,4 @@
 :root{
-  /* Tema beige amigable */
   --bg: #f3ead7;
   --surface: #fff8ea;
   --surface2: #fff3dc;
@@ -59,6 +58,7 @@ a:hover{ text-decoration: underline; }
   outline-offset: 2px;
 }
 
+/* Header */
 .header{
   padding: 1.1rem 0 0.6rem;
   border-bottom: 1px solid var(--line);
@@ -88,6 +88,14 @@ a:hover{ text-decoration: underline; }
 .brand__titleSub{ font-weight: 800; font-size: 1.05rem; color: var(--muted); }
 .brand__subtitle{ margin: .25rem 0 0; color: var(--muted); font-size: .95rem; }
 
+.headerActions{
+  display: flex;
+  gap: .7rem;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 .fontControls{ display: inline-flex; gap: .5rem; align-items: center; }
 .iconBtn{
   border: 1px solid var(--line);
@@ -102,6 +110,7 @@ a:hover{ text-decoration: underline; }
 .iconBtn:active{ transform: translateY(1px); }
 .iconBtn:focus{ outline: 3px solid rgba(176,107,59,.22); outline-offset: 2px; }
 
+/* Tabs */
 .tabs{ display: flex; gap: .6rem; padding-bottom: .7rem; }
 .tab{
   border: 1px solid var(--line);
@@ -121,6 +130,7 @@ a:hover{ text-decoration: underline; }
 }
 .tab:focus{ outline: 3px solid rgba(43,122,120,.20); outline-offset: 2px; }
 
+/* Main / panels */
 .main{ padding: 1.2rem 0 2.2rem; }
 .panel{ margin-top: .9rem; }
 .panel[hidden]{ display: none !important; }
@@ -147,6 +157,7 @@ a:hover{ text-decoration: underline; }
 @media (max-width: 760px){
   .welcome__inner{ grid-template-columns: 1fr; }
   .welcome__actions{ justify-self: start; flex-direction: row; flex-wrap: wrap; }
+  .header__inner{ align-items: flex-start; }
 }
 
 /* Buttons */
@@ -163,6 +174,7 @@ a:hover{ text-decoration: underline; }
 .btn:hover{ background: rgba(255,255,255,.80); border-color: rgba(176,107,59,.25); }
 .btn:active{ transform: translateY(1px); }
 .btn:focus{ outline: 3px solid rgba(176,107,59,.22); outline-offset: 2px; }
+
 .btn--primary{
   border-color: rgba(176,107,59,.35);
   background: linear-gradient(135deg, rgba(176,107,59,.22), rgba(43,122,120,.14));
@@ -208,7 +220,6 @@ a:hover{ text-decoration: underline; }
   gap: .8rem;
 }
 .card__title{ margin: 0; font-size: 1.03rem; }
-
 .badge{
   display: inline-flex;
   align-items: center;
@@ -221,14 +232,12 @@ a:hover{ text-decoration: underline; }
   background: rgba(255,243,220,.85);
   white-space: nowrap;
 }
-
 .card__body{
   padding: 0 .95rem .95rem;
   color: rgba(43,38,32,.85);
   flex: 1;
 }
 .card__desc{ margin: .35rem 0 .6rem; }
-
 .card__meta{
   display: flex;
   flex-wrap: wrap;
@@ -251,7 +260,6 @@ a:hover{ text-decoration: underline; }
   gap: .55rem;
   align-items: center;
 }
-
 .actionLink{
   display: inline-flex;
   align-items: center;
@@ -268,7 +276,6 @@ a:hover{ text-decoration: underline; }
   background: rgba(255,255,255,.85);
   border-color: rgba(43,122,120,.28);
 }
-
 .starBtn{
   margin-left: auto;
   border: 1px solid rgba(43,38,32,.18);
@@ -285,7 +292,6 @@ a:hover{ text-decoration: underline; }
 }
 
 .moreWrap{ display: flex; justify-content: center; margin: 1.1rem 0 .6rem; }
-
 .empty{
   border: 1px dashed rgba(43,38,32,.22);
   border-radius: var(--radius);
@@ -340,7 +346,7 @@ a:hover{ text-decoration: underline; }
 
 .muted{ color: var(--muted); }
 
-/* Form styles */
+/* Form */
 .form{ margin-top: .8rem; }
 .form__grid{
   display: grid;
@@ -350,7 +356,6 @@ a:hover{ text-decoration: underline; }
 @media (max-width: 760px){
   .form__grid{ grid-template-columns: 1fr; }
 }
-
 .field label{
   display: block;
   font-weight: 900;
@@ -386,6 +391,7 @@ a:hover{ text-decoration: underline; }
   display: flex;
   gap: .7rem;
   flex-wrap: wrap;
+  justify-content: flex-end;
 }
 
 .status{
