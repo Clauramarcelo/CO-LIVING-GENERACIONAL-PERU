@@ -1,73 +1,168 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CO-LIVING Generacional</title>
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
+  <title>CO‑LIVING Generacional</title>
+
+  styles.css
 </head>
 
 <body>
+  #mainSaltar al contenido</a>
 
-<header class="header">
-  <div class="container">
-    <h1>CO-LIVING Generacional</h1>
-    <p class="subtitle">
-      Un espacio de apoyo y orientación para personas en etapa de transición laboral
-    </p>
-  </div>
-</header>
+  <header class="header" role="banner">
+    <div class="container header__inner">
+      <div class="brand" aria-label="Marca">
+        <div class="brand__text">
+          <h1 class="brand__title">
+            <span class="brand__titleMain">CO‑LIVING</span>
+            <span class="brand__titleSub">Generacional</span>
+          </h1>
+          <p class="brand__subtitle">Acompañamiento sereno • Comunidad • Oportunidades</p>
+        </div>
+      </div>
 
-<section class="voiceBox">
-  <button id="btnVoice" class="btnVoice">🔊 Escuchar explicación</button>
-</section>
-
-<nav class="tabs container">
-  <button class="tab is-active" id="tab-programas">PROGRAMAS</button>
-  <button class="tab" id="tab-inscripcion">INSCRIPCIÓN</button>
-  <button class="tab" id="tab-nosotros">QUIÉNES SOMOS</button>
-</nav>
-
-<main class="container">
-
-  <!-- PROGRAMAS -->
-  <section id="panel-programas" class="panel is-active">
-    <h2>Programas de apoyo disponibles</h2>
-    <div id="cards" class="grid"></div>
-  </section>
-
-  <!-- INSCRIPCION -->
-  <section id="panel-inscripcion" class="panel">
-    <h2>Inscripción</h2>
-    <p>
-      Este espacio es informativo. No solicitamos datos personales ni inscripciones directas.
-    </p>
-    <div class="callout">
-      ✔ Orientación gratuita  
-      ✔ Información confiable  
-      ✔ Acompañamiento con respeto
+      <!-- Controles de tamaño de letra -->
+      <div class="fontControls" aria-label="Controles de tamaño de letra">
+        <button id="btnFontDown" class="iconBtn" type="button" aria-label="Disminuir tamaño de letra">A−</button>
+        <button id="btnFontUp" class="iconBtn" type="button" aria-label="Aumentar tamaño de letra">A+</button>
+      </div>
     </div>
-  </section>
 
-  <!-- QUIENES SOMOS -->
-  <section id="panel-nosotros" class="panel">
-    <h2>Quiénes somos</h2>
-    <p>
-      CO-LIVING Generacional es un proyecto académico de innovación social que busca
-      acompañar a personas cesantes o en transición laboral, brindando información clara
-      y oportunidades confiables.
-    </p>
-  </section>
+    <nav class="tabs container" role="tablist" aria-label="Navegación principal">
+      <button class="tab is-active"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-links"
+              id="tab-links"
+              type="button">
+        Programas
+      </button>
 
-</main>
+      <button class="tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-about"
+              id="tab-about"
+              type="button">
+        Quiénes somos
+      </button>
+    </nav>
+  </header>
 
-<footer class="footer">
-  <small>© 2026 CO-LIVING Generacional</small>
-</footer>
+  <main id="main" class="container main" tabindex="-1">
 
-<script src="data.js"></script>
-<script src="app.js"></script>
+    <!-- PANEL 1: PROGRAMAS -->
+    <section id="panel-links" class="panel is-active" role="tabpanel" aria-labelledby="tab-links">
 
+      <!-- Bienvenida compacta (sin obligar scroll) -->
+      <section class="welcome" aria-label="Bienvenida">
+        <div class="welcome__overlay" aria-hidden="true"></div>
+
+        <div class="welcome__inner">
+          <div class="welcome__text">
+            <h2 class="welcome__title">Bienvenido/a</h2>
+
+            <p class="welcome__desc">
+              Somos un grupo comprometido en acompañarte con respeto y tranquilidad.
+              Sabemos que pensar en <em>“¿qué será de mí cuando deje de trabajar?”</em> puede generar incertidumbre.
+              Por eso reunimos aquí opciones confiables para avanzar <strong>paso a paso, con calma</strong>.
+            </p>
+
+            <p class="welcome__desc">
+              Acompañamos con respeto a quienes han dedicado años de su vida al trabajo y hoy buscan
+              nuevas maneras de seguir aportando y sintiéndose bien. <strong>No estás solo/a</strong>.
+            </p>
+          </div>
+
+          <div class="welcome__actions" aria-label="Acciones rápidas">
+            <button class="btn btn--primary btn--xl" type="button" id="btnFocusPrograms">
+              Ver programas
+            </button>
+            <button class="btn btn--ghost btn--xl" type="button" id="btnOpenAbout">
+              Quiénes somos
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Favoritos -->
+      <section id="favoritesSection" class="favorites" hidden aria-label="Tus favoritos">
+        <div class="favorites__header">
+          <h3 class="favorites__title">Tus favoritos</h3>
+          <button id="btnClearFavs" class="btn btn--ghost" type="button">Quitar todos</button>
+        </div>
+        <div id="favoritesGrid" class="grid" aria-label="Listado de favoritos"></div>
+      </section>
+
+      <section class="listHeader" aria-label="Sección de programas">
+        <h3 class="listHeader__title" id="programsTitle">Programas disponibles</h3>
+        <p class="listHeader__subtitle" id="resultsCount">Cargando...</p>
+      </section>
+
+      <section id="cards" class="grid" aria-label="Listado de programas"></section>
+
+      <!-- Botón MÁS PROGRAMAS -->
+      <div class="moreWrap" aria-label="Más programas">
+        <button id="btnMorePrograms" class="btn btn--ghost btn--xl" type="button">
+          Más programas
+        </button>
+      </div>
+
+      <section id="emptyState" class="empty" hidden aria-label="Sin enlaces">
+        <h3>No hay enlaces aún</h3>
+        <p>Agrega más programas en el archivo <strong>data.js</strong>.</p>
+      </section>
+    </section>
+
+    <!-- PANEL 2: QUIÉNES SOMOS -->
+    <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about">
+      <article class="about">
+        <h2>Quiénes somos</h2>
+        <p>
+          Somos un grupo que desea acompañarte en una etapa de transición.
+          Nuestra meta es reducir la angustia y la incertidumbre, ofreciendo un punto de inicio claro y amable:
+          enlaces confiables a programas y recursos que pueden ayudarte a reconectarte con oportunidades,
+          comunidad y bienestar.
+        </p>
+
+        <h3>Nuestra misión</h3>
+        <p>
+          Disminuir la dificultad de buscar información en internet con una experiencia simple, accesible y humana.
+        </p>
+
+        <h3>Cómo usar la app</h3>
+        <ol>
+          <li>Revisa las tarjetas (cards) en “Programas”.</li>
+          <li>Abre el enlace del programa que te interese.</li>
+          <li>Si hay contacto, usa “WhatsApp” o “Llamar”.</li>
+          <li>Si te gusta un programa, guárdalo en ⭐ Favoritos.</li>
+        </ol>
+
+        <h3>Contacto</h3>
+        <p>
+          ¿Quieres sugerir una institución o mejorar la app?
+          <br />
+          mailto:contacto@colivinggeneracional.pecontacto@colivinggeneracional.pe</a>
+        </p>
+
+        <div class="callout">
+          <strong>Nota:</strong> esta app no reemplaza asesoría psicológica, médica o legal. Es una guía para facilitar el acceso a recursos.
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="container footer__inner">
+      <small>© <span id="year"></span> CO‑LIVING Generacional — Hecho con propósito.</small>
+      <small class="muted">Accesible • Simple • Claro</small>
+    </div>
+  </footer>
+
+  data.js</script>
+  app.js</script>
 </body>
 </html>
-
