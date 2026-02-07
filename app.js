@@ -1,18 +1,15 @@
 (() => {
   "use strict";
 
-  // ✅ Tus números
-  const WHATSAPP_ADMINS = ["51937138457", "51956896092"];
+  // ✅ WhatsApp principal (N°2)
+  const WHATSAPP_NUMBER = "51956896092";
 
   // Helpers
   const $ = (sel, root = document) => root.querySelector(sel);
   const safeText = (v) => (v == null ? "" : String(v));
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
   const digitsOnly = (v) => safeText(v).replace(/[^\d]/g, "");
-
-  function normalizePhone(phone) {
-    return safeText(phone).trim().replace(/[^\d+]/g, "");
-  }
+  const normalizePhone = (phone) => safeText(phone).trim().replace(/[^\d+]/g, "");
 
   function buildWhatsAppLink(number, message) {
     const n = digitsOnly(number);
@@ -71,12 +68,12 @@
   const btnFontDown = $("#btnFontDown");
   const btnFontUp = $("#btnFontUp");
 
+  // Contact button
+  const btnContactUs = $("#btnContactUs");
+
   // Signup
   const signupForm = $("#signupForm");
   const signupStatus = $("#signupStatus");
-  const btnSendW1 = $("#btnSendW1");
-  const btnSendW2 = $("#btnSendW2");
-  let lastSignupMsg = "";
 
   function init() {
     if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -84,11 +81,13 @@
     setupTabs();
     setupFontControls();
     setupQuickActions();
+    setupContactButton();
 
     renderInitialPrograms();
     renderFavorites();
 
     btnMorePrograms?.addEventListener("click", () => renderNextPage());
+
     btnClearFavs?.addEventListener("click", () => {
       favs.clear();
       saveFavs(favs);
@@ -176,7 +175,17 @@
       setTab("programs");
       $("#programsTitle")?.scrollIntoView({ behavior: "smooth", block: "start" });
     });
+
     btnOpenAbout?.addEventListener("click", () => setTab("about"));
+  }
+
+  // Contact button -> WhatsApp
+  function setupContactButton() {
+    if (!btnContactUs) return;
+    btnContactUs.addEventListener("click", () => {
+      const msg = "Hola, me interesa CO‑LIVING Generacional y quisiera más información. ✅";
+      window.open(buildWhatsAppLink(WHATSAPP_NUMBER, msg), "_blank", "noopener,noreferrer");
+    });
   }
 
   // Programs render
@@ -198,7 +207,7 @@
     updateCount();
   }
 
-  function renderNextPage(isFirst = false) {
+  function renderNextPage() {
     const remaining = ALL.length - shownCount;
     const take = Math.min(PAGE_SIZE, remaining);
     const slice = ALL.slice(shownCount, shownCount + take);
@@ -311,6 +320,7 @@
       if (!id) return;
       if (favs.has(id)) favs.delete(id);
       else favs.add(id);
+
       saveFavs(favs);
       renderFavorites();
       rerenderCardsKeepingCount();
@@ -368,7 +378,7 @@
       if (!interest) return setStatus("Selecciona un interés.", "bad");
       if (!phone || phone.replace(/\D/g, "").length < 8) return setStatus("Ingresa un número de celular válido.", "bad");
 
-      lastSignupMsg =
+      const msg =
 `📌 *Nueva inscripción - CO‑LIVING Generacional*
 👤 *Apellidos y nombres:* ${fullName}
 🎂 *Años:* ${age}
@@ -377,25 +387,13 @@
 
 Enviado desde la web ✅`;
 
-      // Abre WhatsApp 1 (más estable; evita bloqueos)
-      window.open(buildWhatsAppLink(WHATSAPP_ADMINS[0], lastSignupMsg), "_blank", "noopener,noreferrer");
-      setStatus("Se abrió WhatsApp 1 ✅. Usa los botones para abrir WhatsApp 2.", "ok");
+      window.open(buildWhatsAppLink(WHATSAPP_NUMBER, msg), "_blank", "noopener,noreferrer");
+      setStatus("Abriendo WhatsApp… 👍 (envía el mensaje desde WhatsApp)", "ok");
+
       signupForm.reset();
     });
 
     signupForm.addEventListener("reset", () => setStatus("", "ok"));
-
-    btnSendW1?.addEventListener("click", () => {
-      if (!lastSignupMsg) return setStatus("Primero completa y envía una inscripción para generar el mensaje.", "bad");
-      window.open(buildWhatsAppLink(WHATSAPP_ADMINS[0], lastSignupMsg), "_blank", "noopener,noreferrer");
-      setStatus("WhatsApp 1 abierto ✅", "ok");
-    });
-
-    btnSendW2?.addEventListener("click", () => {
-      if (!lastSignupMsg) return setStatus("Primero completa y envía una inscripción para generar el mensaje.", "bad");
-      window.open(buildWhatsAppLink(WHATSAPP_ADMINS[1], lastSignupMsg), "_blank", "noopener,noreferrer");
-      setStatus("WhatsApp 2 abierto ✅", "ok");
-    });
   }
 
   document.addEventListener("DOMContentLoaded", init);
