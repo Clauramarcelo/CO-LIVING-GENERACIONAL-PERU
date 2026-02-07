@@ -6,8 +6,8 @@
   <meta name="description" content="CO‑LIVING Generacional: guía simple para apoyo, comunidad, voluntariado y oportunidades." />
   <title>CO‑LIVING Generacional</title>
 
-  <!-- ✅ CSS correcto (ESTO hace que se vea en el celular) -->
-  <link rel="stylesheet" href="styles.css" />
+  <!-- ✅ CSS correcto -->
+  <link rel="stylesheet" href="./styles.css" />
 </head>
 
 <body>
@@ -26,10 +26,16 @@
         </div>
       </div>
 
-      <!-- Controles de tamaño de letra -->
-      <div class="fontControls" aria-label="Controles de tamaño de letra">
-        <button id="btnFontDown" class="iconBtn" type="button" aria-label="Disminuir tamaño de letra">A−</button>
-        <button id="btnFontUp" class="iconBtn" type="button" aria-label="Aumentar tamaño de letra">A+</button>
+      <!-- Controles + Contacto -->
+      <div class="headerActions" aria-label="Acciones">
+        <div class="fontControls" aria-label="Controles de tamaño de letra">
+          <button id="btnFontDown" class="iconBtn" type="button" aria-label="Disminuir tamaño de letra">A−</button>
+          <button id="btnFontUp" class="iconBtn" type="button" aria-label="Aumentar tamaño de letra">A+</button>
+        </div>
+
+        <button id="btnContactUs" class="btn btn--primary" type="button">
+          Comunícate con nosotros
+        </button>
       </div>
     </div>
 
@@ -121,35 +127,48 @@
     <section id="panel-about" class="panel" role="tabpanel" aria-labelledby="tab-about" hidden>
       <article class="about">
         <h2>Quiénes somos</h2>
+
         <p>
-          Somos un grupo que desea acompañarte en una etapa de transición.
-          Nuestra meta es reducir la angustia y la incertidumbre, ofreciendo un punto de inicio claro y amable:
-          enlaces confiables a programas y recursos que pueden ayudarte a reconectarte con oportunidades,
-          comunidad y bienestar.
+          Somos un equipo de estudiantes del
+          <strong>curso de Innovación Social de la Universidad Continental</strong>,
+          comprometidos con crear iniciativas que aporten bienestar, conexión humana y
+          nuevas oportunidades para personas adultas mayores en etapas de transición.
         </p>
 
-        <h3>Nuestra misión</h3>
+        <h3>Nuestro equipo</h3>
+        <ul>
+          <li>Flores de la Cruz, Claudia Andrea</li>
+          <li>Gonzales Almanza, Elizabeth</li>
+          <li>Vargas Solis, Karin</li>
+          <li>Sierralta Calderón, Erick</li>
+          <li>Laura Marcelo, César</li>
+        </ul>
+
+        <h3>Nuestra propuesta</h3>
         <p>
-          Disminuir la dificultad de buscar información en internet con una experiencia simple, accesible y humana.
+          <strong>CO‑LIVING Generacional</strong> es una propuesta de proyecto que busca facilitar el acceso a
+          recursos confiables (programas, actividades, voluntariado y redes de apoyo), presentados de forma simple
+          y amigable para que cada persona pueda avanzar con calma y claridad.
         </p>
 
-        <h3>Cómo usar la app</h3>
-        <ol>
-          <li>Revisa las tarjetas (cards) en “Programas”.</li>
-          <li>Abre el enlace del programa que te interese.</li>
-          <li>Si te gusta un programa, guárdalo en ⭐ Favoritos.</li>
-        </ol>
+        <h3>Nuestro propósito</h3>
+        <p>
+          Queremos reducir la incertidumbre que puede aparecer al cerrar la etapa laboral y apoyar una transición
+          más plena: con acompañamiento, comunidad y nuevas formas de participación.
+        </p>
 
         <h3>Contacto</h3>
         <p>
-          ¿Quieres sugerir una institución o mejorar la app?
+          <strong>WhatsApp:</strong> 51956896092
           <br />
-          <a href="mailto:contacto@colivinggeneracional.pe">contacto@colivinggeneracional.pe</a>
+          <a href="https://wa.me/51956896092" target="_blank" rel="noopener noreferrer">
+            Escríbenos por WhatsApp
+          </a>
         </p>
 
         <div class="callout">
-          <strong>Nota:</strong> esta app no reemplaza asesoría psicológica, médica o legal.
-          Es una guía para facilitar el acceso a recursos.
+          <strong>Nota:</strong> esta aplicación no reemplaza atención médica, psicológica o legal.
+          Es una herramienta informativa para acercar a las personas a recursos reales y confiables.
         </div>
       </article>
     </section>
@@ -201,13 +220,10 @@
           </div>
 
           <div class="form__actions">
-            <button class="btn btn--primary btn--xl" type="submit">Enviar inscripción</button>
             <button class="btn btn--ghost btn--xl" type="reset">Limpiar</button>
-          </div>
-
-          <div class="form__actions" style="margin-top:.6rem">
-            <button id="btnSendW1" class="btn btn--ghost btn--xl" type="button">Enviar a WhatsApp 1</button>
-            <button id="btnSendW2" class="btn btn--ghost btn--xl" type="button">Enviar a WhatsApp 2</button>
+            <button id="btnSendW2" class="btn btn--primary btn--xl" type="submit">
+              Envía tus datos si te interesa
+            </button>
           </div>
 
           <p id="signupStatus" class="status" role="status" aria-live="polite"></p>
@@ -228,8 +244,8 @@
     </div>
   </footer>
 
-  <!-- ✅ Scripts correctos (con defer para que cargue bien en móvil) -->
-  <script src="data.js" defer></script>
-  <script src="app.js" defer></script>
+  <!-- ✅ Scripts correctos -->
+  <script src="./data.js" defer></script>
+  <script src="./app.js" defer></script>
 </body>
 </html>
